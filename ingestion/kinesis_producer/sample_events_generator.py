@@ -1,8 +1,15 @@
+import argparse
 import json
 import random
 import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+
+import boto3
+
+# ==== Config ====
+AWS_REGION = "ap-south-1"  # change if needed
+KINESIS_STREAM_NAME = "myshr-netflix-events-stream"
 
 EVENT_TYPES = ["play", "pause", "seek", "stop", "search"]
 DEVICE_TYPES = ["mobile", "tv", "web"]
@@ -18,9 +25,11 @@ SEARCH_QUERIES = [
     "bollywood",
     "hollywood",
 ]
+
+
 def generate_base_event(event_type: str) -> dict:
     now = datetime.now(timezone.utc)
-    # A lil random time offset (last 15 minutes ke andar)
+    # Thoda random time offset (last 15 minutes ke andar)
     timestamp = now - timedelta(seconds=random.randint(0, 15 * 60))
 
     event = {
@@ -48,6 +57,7 @@ def generate_base_event(event_type: str) -> dict:
 
     return event
 
+
 def generate_events(count: int = 100) -> list:
     events = []
     for _ in range(count):
@@ -63,14 +73,60 @@ def save_events_to_file(events, output_path: Path):
             f.write(json.dumps(event) + "\n")
 
 
+def send_events_to_kinesis(events):
+    kinesis = boto3.client("kinesis", region_name=AWS_REGION)
+
+    for event in events:
+        data = json.dumps(event).encode("utf-8")
+        partition_key = event["partition_key"]
+
+        response = kinesis.put_record(
+            StreamName=KINESIS_STREAM_NAME,
+            Data=data,
+            PartitionKey=partition_key,
+        )
+        # Optional: basic logging
+        print(
+            f"Sent event_id={event['event_id']} "
+            f"to shard={response['ShardId']} "
+            f"seq={response['SequenceNumber']}"
+        )
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Synthetic Netflix-style event generator (file or Kinesis)."
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["file", "kinesis"],
+        default="file",
+        help="Output mode: file (default) or kinesis",
+    )
+    parser.add_argument(
+        "--count",
+        type=int,
+        default=100,
+        help="Number of events to generate",
+    )
+    return parser.parse_args()
+
+
 def main():
-    count = 100
-    output_path = Path(__file__).parent / "events_sample.json"
+    args = parse_args()
+    events = generate_events(args.count)
 
-    events = generate_events(count)
-    save_events_to_file(events, output_path)
+    if args.mode == "file":
+        output_path = Path(__file__).parent / "events_sample.json"
+        save_events_to_file(events, output_path)
+        print(f"Generated {len(events)} events -> {output_path}")
+    else:
+        print(
+            f"Sending {len(events)} events to Kinesis stream "
+            f"'{KINESIS_STREAM_NAME}' in region '{AWS_REGION}'"
+        )
+        send_events_to_kinesis(events)
 
-    print(f"Generated {len(events)} events -> {output_path}")
     print("Sample events:")
     for e in events[:3]:
         print(json.dumps(e, indent=2))
