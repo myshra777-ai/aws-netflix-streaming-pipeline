@@ -321,7 +321,7 @@ From this project I practiced:
 
 ---
 
-## 10. Future Improvements
+## 11. Future Improvements
 
 Planned enhancements:
 
@@ -330,3 +330,34 @@ Planned enhancements:
 - Move orchestration to Step Functions or Apache Airflow.  
 - Add a simple dashboard (QuickSight or Streamlit) on top of Athena queries.
 ```
+
+10. Scalability & Future Improvements
+Scalability
+Horizontal scaling: Firehose scales automatically with event volume.
+
+Glue jobs: Can be configured with more DPUs/workers for larger datasets.
+
+Athena: Queries scale with S3 size; partitioning reduces cost and latency.
+
+Data lake design: Partitioning by event_date ensures efficient query performance.
+
+Fault Tolerance
+Firehose retries failed deliveries and buffers events.
+
+Glue jobs can be retried with checkpoints.
+
+CloudWatch alarms provide proactive monitoring.
+
+Extensibility
+Add streaming ingestion via Kinesis Data Streams or Kafka.
+
+Introduce advanced DQ checks and anomaly detection.
+
+Orchestrate with Step Functions or Airflow.
+
+Build dashboards with QuickSight or Streamlit.
+
+Extend schema to include richer playback metadata (duration, bitrate, errors).
+
+### 13. Conclusion
+This project demonstrates a production‑inspired, serverless data pipeline with clear separation of raw and processed zones, partitioned Parquet storage, Glue ETL, Athena analytics, and CloudWatch monitoring. It is scalable, fault‑tolerant, and extensible, making it a strong portfolio piece for data engineering roles.
