@@ -1,152 +1,166 @@
+
+
 ```markdown
-# AWS Netflix Streaming Data Pipeline
+# 🎬 Netflix Streaming Data Pipeline on AWS
 
-This project is an end-to-end **AWS-native** data platform inspired by Netflix’s streaming architecture. It simulates user streaming events (play, pause, search, etc.) and builds a scalable pipeline for real-time and batch analytics using AWS services.
+An **end-to-end, production-style data engineering project** that ingests Netflix-style streaming events into an **S3 data lake**, transforms them with **AWS Glue**, stores optimized **Parquet files**, and exposes the data for analytics via **Amazon Athena**.  
 
----
-
-## 🎯 Goals
-
-- Build a production-style, portfolio-ready streaming + batch data pipeline on AWS  
-- Use fully managed AWS services instead of heavy local infra (no Airflow, minimal Docker)  
-- Showcase data lake, warehouse, orchestration, and monitoring patterns in one project  
+![AWS](https://img.shields.io/badge/AWS-Glue%20%7C%20Athena%20%7C%20S3-orange?logo=amazonaws)  
+![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen)  
+![License](https://img.shields.io/badge/License-MIT-blue)
 
 ---
 
-## 🏗️ High-Level Architecture (Planned)
+## 🚩 Problem Statement
+Design a **production-grade ETL pipeline** for Netflix viewing events:
 
-**Ingestion & Streaming**
+- 📥 Ingest raw streaming events into an **S3 data lake (bronze layer)**  
+- 🔄 Transform and optimize data using **AWS Glue (silver layer)**  
+- 📊 Store data in **Parquet format** for fast analytics  
+- 🔎 Query the data using **Amazon Athena (gold layer)**  
+- ⏰ Add **scheduling & monitoring** to make the pipeline production-ready  
 
-- Simulated user events (Netflix-style playback & interaction logs)
-- Amazon Kinesis Data Streams (or Firehose) for real-time ingestion
-- Producer scripts running from local / EC2 to push events
+---
 
-**Data Lake & Metadata**
+## 🏗️ Architecture Overview
 
-- Amazon S3 with separate zones:
-  - `raw` – direct ingested events
-  - `processed` – cleaned & enriched data
-  - `curated` – analytics-ready tables
-- AWS Glue Crawlers + Glue Data Catalog for schema management
+**Region:** `ap-south-1 (Mumbai)`  
+**Bucket:** `myshr-netflix-datalake-ap-south-1`
 
-**Processing**
+```mermaid
+flowchart TD
+    A[Raw Events (CSV/JSON)] -->|Glue Crawler| B[Raw Athena Table]
+    B -->|Glue ETL Job| C[Processed Parquet in S3]
+    C -->|Glue Crawler| D[Processed Athena Tables]
+    D --> E[Analytics Queries in Athena]
+    E --> F[CloudWatch Alarms + SNS Notifications]
+```
 
-- Streaming:
-  - AWS Glue Streaming jobs (PySpark) or Kinesis Data Analytics
-  - Real-time transformations, partitioned data written to S3
-- Batch:
-  - AWS Glue batch jobs for hourly/daily aggregations
-  - Dimension/fact-style tables for analytics
+Layers:
+- **Bronze (Raw Layer)** → S3 + Glue crawler + Athena raw table  
+- **Silver (Processed Layer)** → Parquet + Glue ETL job + Athena processed tables  
+- **Gold (Analytics Layer)** → Athena queries for insights  
+- **Ops Layer** → Glue triggers + CloudWatch alarms  
 
-**Warehouse & Analytics**
+---
 
-- Amazon Redshift for warehouse-style analytics and dashboards
-- Amazon Athena for ad-hoc SQL directly on S3
-- (Optional later) Amazon QuickSight for BI dashboards
+## 📐 Data Model
 
-**Orchestration & Monitoring**
+**Raw Events Schema:**
+- `user_id` 🔑  
+- `title_id` 🎞️  
+- `event_type` (e.g., `PLAY_START`)  
+- `event_ts` (epoch timestamp)  
+- `device_type` (mobile, web, TV)  
+- `country` (ISO code)  
 
-- AWS Step Functions to orchestrate Glue jobs, Redshift loads, and Lambdas
-- Amazon EventBridge for scheduling and event-driven triggers
-- AWS Lambda for small utility tasks (quality checks, housekeeping)
-- Amazon SNS for alerts (job failures, SLA breaches)
-- Amazon CloudWatch for logs, metrics, and alarms
+**Processed Layer:** Same schema, stored in **Parquet + Snappy compression** for efficiency.
+
+---
+
+## ⚙️ AWS Glue ETL Job (PySpark)
+
+📂 Script: `etl/netflix_raw_to_processed.py`
+
+**Steps:**
+1. Read raw events from Glue Data Catalog (`raw_netflix_events_rootevents`)  
+2. Apply basic data quality checks (`ColumnCount > 0`)  
+3. Write to S3 in **Parquet (Snappy)** under `processed/`  
+4. Update Athena tables via Glue crawler  
+
+---
+
+## 📊 Athena Analytics Queries
+
+Stored in `sql/`:
+
+- **Total Events**
+  ```sql
+  SELECT COUNT(*) AS total_events
+  FROM raw_netflix_events_rootevents;
+  ```
+
+- **Top Movies**
+  ```sql
+  SELECT title_id, COUNT(*) AS views
+  FROM raw_netflix_events_rootevents
+  WHERE event_type = 'PLAY_START'
+  GROUP BY title_id
+  ORDER BY views DESC
+  LIMIT 10;
+  ```
+
+- **Country Distribution**
+  ```sql
+  SELECT country, COUNT(*) AS events
+  FROM raw_netflix_events_rootevents
+  GROUP BY country
+  ORDER BY events DESC;
+  ```
+
+✅ Example Results:
+- 3,010 total events  
+- All `PLAY_START` events → `title_id = 100`  
+- All events from `country = 'IN'`  
+
+---
+
+## ⏱️ Scheduling & Monitoring
+
+- **Trigger:** `netflix-daily-etl-trigger` → runs Glue job daily at **02:00 AM UTC (07:30 AM IST)**  
+- **CloudWatch Alarm:** `netflix-glue-job-high-resource-usage` → monitors Glue job resource usage (>50% threshold)  
+- **SNS Notifications:** Email alerts on job failures or anomalies  
 
 ---
 
 ## 📂 Repository Structure
 
-> Current state: skeleton created, implementation will be filled in phase by phase.
-
 ```text
-ingestion/
-  kinesis_producer/
-    README.md                # How we generate and send streaming events
-    sample_events_generator.py
-
-streaming/
-  glue_streaming_jobs/
-    README.md                # Design of streaming jobs
-    netflix_stream_ingest_job.py
-
-batch_etl/
-  glue_jobs/
-    daily_aggregations_job.py
-
-warehouse/
-  redshift/
-    ddl/
-      create_tables.sql      # Redshift table schemas
-    etl_sql/
-      load_from_s3.sql       # COPY / MERGE style scripts
-
-orchestration/
-  step_functions/
-    netflix_pipeline_state_machine.json
-  eventbridge_rules/
-    schedules.md
-
-infra/
-  terraform/
-    main.tf                  # IaC for core AWS resources (to be implemented)
-
-monitoring/
-  cloudwatch_alarms/
-    alarms.md                # Planned alarms & metrics
-
-docs/
-  architecture-diagram.md    # Text / diagram of full architecture
-  data_model.md              # Explanation of logical & physical data model
+aws-netflix-streaming-pipeline/
+├─ etl/
+│  └─ netflix_raw_to_processed.py      # Glue PySpark ETL job
+├─ sql/
+│  ├─ total_events.sql                 # Total events
+│  ├─ top_movies.sql                   # Top titles by views
+│  └─ country_distribution.sql         # Events per country
+├─ config/
+│  └─ netflix_config.json              # Future pipeline configuration
+└─ docs/
+   └─ README.md                        # Project documentation
 ```
 
 ---
 
-## 🚦 Roadmap & Phases
+## 🚀 How to Run
 
-**Phase 1 – Basic Streaming Path**
-
-- [ ] Implement local/EC2 event producer → Kinesis → S3 (raw zone)  
-- [ ] Configure Glue Crawler + Catalog for raw data  
-- [ ] Query raw events via Athena  
-
-**Phase 2 – Streaming Transformations**
-
-- [ ] Implement Glue Streaming job (or KDA) to process Kinesis events  
-- [ ] Write processed data to S3 (processed zone) with partitions  
-
-**Phase 3 – Batch ETL & Warehouse**
-
-- [ ] Glue batch job for aggregations (view time, top shows, etc.)  
-- [ ] Create Redshift schemas and load data from S3  
-- [ ] Build a few core analytics queries / views  
-
-**Phase 4 – Orchestration & Monitoring**
-
-- [ ] Step Functions state machine for end-to-end workflows  
-- [ ] EventBridge schedules for daily/hourly runs  
-- [ ] Lambda + SNS alerts on failures / anomalies  
-- [ ] CloudWatch metrics & alarms documentation  
-
-**Phase 5 – Polish for Portfolio**
-
-- [ ] Finalize docs (`docs/architecture-diagram.md`, `data_model.md`)  
-- [ ] Add diagrams and example queries  
-- [ ] Optional dashboards (QuickSight / any BI tool)
+1. **Raw Layer Setup** → Upload raw files → Run Glue crawler  
+2. **ETL Job** → Execute `netflix_raw_to_processed.py` → Write Parquet to S3  
+3. **Processed Crawler** → Update Athena tables  
+4. **Analytics** → Run queries in Athena  
+5. **Automation** → Enable Glue trigger for daily runs  
 
 ---
 
-## 🧩 Tech Stack
-
-- Language: Python (PySpark for Glue jobs)
-- AWS: Kinesis, S3, Glue, Redshift, Athena, Step Functions, EventBridge, Lambda, SNS, CloudWatch
-- Infra as Code: Terraform / CloudFormation (planned)
+## 🔮 Future Enhancements
+- Advanced transformations (aggregations, serving schema)  
+- Partitioning by `event_date` / `country` for Athena cost optimization  
+- Richer Glue Data Quality rules (null checks, enums, ranges)  
+- BI dashboards in **QuickSight** or **Grafana**  
 
 ---
 
-## ✅ Status
+## 💼 Portfolio Use
 
-- [x] Repository structure bootstrapped  
-- [ ] Phase 1 streaming path implementation  
-- [ ] Further phases in progress
+> “Built an end-to-end Netflix streaming data pipeline on AWS using S3, Glue, and Athena. Implemented a multi-layer data lake (raw, processed, analytics), automated daily ETL with Glue triggers, stored data in Parquet with Snappy compression, and set up CloudWatch monitoring for Glue job resource usage.”
+
+---
+
 ```
+
+---
+
+This version adds:
+- 🎨 **Visual polish**: emojis, badges, Mermaid diagram.  
+- 📊 **Clear sections**: icons for readability.  
+- ✅ **Recruiter-ready highlights**: portfolio call‑out at the end.  
 
