@@ -1,3 +1,16 @@
+"""
+Glue Job: Raw Netflix events -> Processed partitioned data
+
+- Reads: raw events from Glue catalog / S3 raw path.
+- Transforms:
+  - Casts types, parses timestamps, derives event_date.
+  - Applies basic filters / cleaning logic.
+- Writes:
+  - Partitioned parquet to s3://<bucket>/netflix/processed_partitioned/
+  - Partition key: event_date.
+"""
+
+
 import sys
 from awsglue.transforms import *
 from awsglue.utils import getResolvedOptions
