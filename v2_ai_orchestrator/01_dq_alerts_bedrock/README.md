@@ -2,37 +2,37 @@
 
 ## Goal
 
-Use AI (Amazon Bedrock) to turn raw data quality results into human-friendly alerts and summaries.
+Use Amazon Bedrock to turn raw data quality results into human-friendly alerts and summaries, so issues are easy to understand and act on.
 
 ## High-level flow
 
-1. v1 pipeline runs the core ETL (raw -> processed).
+1. v1 core pipeline runs the raw → processed ETL.
 2. A Data Quality (DQ) job evaluates the processed data and produces metrics/results.
-3. An event is published when the DQ job finishes (EventBridge / SNS).
+3. When the DQ job finishes, it publishes an event (via EventBridge or SNS).
 4. Lambda `lambdas/netflix_bedrock_dq_handler.py` is triggered with the DQ result payload.
 5. Lambda calls Bedrock to:
-   - Summarize the key data quality issues.
+   - Summarize the main data quality issues.
    - Highlight impacted tables/partitions.
-   - Optionally suggest next actions.
-6. Lambda sends the summary to notification channels (SNS / email / Slack).
+   - Optionally suggest next actions or severity.
+6. Lambda sends the summary to notification channels (SNS email / Slack webhook).
 
 ## Key components
 
 - Lambda:
   - File: `lambdas/netflix_bedrock_dq_handler.py`
-  - Input: DQ result event (JSON).
+  - Input: DQ result event (JSON with metrics, rule outcomes, partition info).
   - Output: AI-generated summary message sent to downstream channels.
 
 - Triggers (planned):
   - EventBridge rule listening for Glue DQ job completion.
-  - Or SNS topic where DQ job publishes results.
+  - Or SNS topic where the DQ job publishes its result.
 
 - Notification targets (planned):
-  - SNS email subscription.
-  - Or Slack webhook for data engineering alerts.
+  - SNS topic with email subscribers.
+  - Slack or Teams via webhook.
 
 ## Future ideas
 
-- Include DLQ statistics in the Bedrock summary (count of bad records, top error reasons).
-- Add severity levels (INFO/WARN/CRITICAL) based on DQ scores.
-- Correlate repeated failures over time and flag “chronic” data quality issues.
+- Include DLQ statistics in the Bedrock summary (bad record counts, top error reasons).
+- Add severity levels (INFO / WARN / CRITICAL) based on DQ scores.
+- Track repeated failures over time and flag “chronic” data quality issues.
