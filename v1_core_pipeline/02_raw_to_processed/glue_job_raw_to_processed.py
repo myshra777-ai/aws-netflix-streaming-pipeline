@@ -1,128 +1,74 @@
 import sys
-import json
-import boto3
-
+from awsglue.transforms import *
 from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
 from awsglue.context import GlueContext
 from awsglue.job import Job
-from pyspark.context import SparkContext
-from pyspark.sql import functions as F, Window
+from awsglue.dynamicframe import DynamicFrame
+from awsglue.data_quality import EvaluateDataQuality, DataQualityRuleset
+from pyspark.sql.functions import col, from_unixtime, to_date
 
-# ================== CONFIG (EDIT HERE) ==================
+args = getResolvedOptions(sys.argv, ["JOB_NAME"])
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args["JOB_NAME"], args)
 
-# Raw events written from Kinesis -> S3
-RAW_PATH = "s3://myshr-netflix-datalake-ap-south-1/netflix/raw/"
+# 1) Read from Glue catalog (raw_netflix_events_rootevents)
+raw_dyf = glueContext.create_dynamic_frame.from_catalog(
+    database="netflix-streams-aws",
+    table_name="raw_netflix_events_rootevents"
+)
 
-# Processed events (Parquet, partitioned by event_type)
-PROCESSED_PATH = "s3://myshr-netflix-datalake-ap-south-1/netflix/processed/"
+# 2) Convert to DataFrame for transformations
+df = raw_dyf.toDF()
 
-# Dead-letter / quarantine bucket
-DLQ_PATH = "s3://myshr-netflix-dlq-ap-south-1/netflix/events/"
+# 3) Core transformations (epoch -> date, type casting, etc.)
+df = df.withColumn(
+    "event_date",
+    to_date(from_unixtime(col("event_ts")))
+)
 
-# SNS topic for data-quality / circuit-breaker alerts
-DATA_QUALITY_TOPIC_ARN = "arn:aws:sns:ap-south-1:462634386608:netflix-data-quality-alerts"
+# TODO: add other casts / derived columns as needed
+# e.g. df = df.withColumn("event_type", col("event_type").cast("string"))
 
-# If more than 10% of records are invalid, trip circuit breaker
-INVALID_THRESHOLD = 0.10
+# 4) Convert back to DynamicFrame
+transformed_dyf = DynamicFrame.fromDF(df, glueContext, "transformed_dyf")
 
-# Allowed event types
-VALID_EVENT_TYPES = ["PLAY_START", "PLAY_END", "PAUSE", "DELETE_USER"]
+# 5) Optional: Data Quality checks (row-level outcomes collection)
+# dq_ruleset = DataQualityRuleset(
+#     ruleset="your_dq_ruleset_string_here"
+# )
+# dq_collection = EvaluateDataQuality().process(
+#     glueContext,
+#     frame=transformed_dyf,
+#     ruleset=dq_ruleset,
+#     publishing_options=None
+# )
+# from awsglue.dynamicframe import SelectFromCollection
+# dq_results_dyf = SelectFromCollection.apply(
+#     dfc=dq_collection,
+#     key="rowLevelOutcomes"
+# )
 
-# ========================================================
+# 6) Write partitioned output to S3 processed layer
+sink_dyf = transformed_dyf.repartition(1)  # optional
 
+datasink = glueContext.getSink(
+    path="s3://myshr-netflix-datalake-ap-south-1/netflix/processed_partitioned/",
+    connection_type="s3",
+    updateBehavior="UPDATE_IN_DATABASE",
+    partitionKeys=["event_date"],
+    enableUpdateCatalog=True,
+    transformation_ctx="datasink"
+)
 
-def main():
-    # Glue passes these automatically
-    args = getResolvedOptions(sys.argv, ["JOB_NAME", "JOB_RUN_ID"])
+datasink.setCatalogInfo(
+    catalogDatabase="netflix-streams-aws",
+    catalogTableName="processed_netflix_events"
+)
+datasink.setFormat("glueparquet", compression="snappy")
+datasink.writeFrame(sink_dyf)
 
-    sc = SparkContext()
-    glue_context = GlueContext(sc)
-    spark = glue_context.spark_session
-
-    job = Job(glue_context)
-    job.init(args["JOB_NAME"], args)
-
-    # 1) Read raw data from S3
-    df = spark.read.json(RAW_PATH)
-
-    # 2) Basic null handling / default values
-    df = (
-        df
-        .withColumn("playback_position_sec", F.coalesce("playback_position_sec", F.lit(0)))
-        .withColumn("total_duration_sec", F.coalesce("total_duration_sec", F.lit(0)))
-    )
-
-    # 3) Validation rules -> mark each row valid / invalid
-    validated = df.withColumn(
-        "is_valid",
-        F.col("event_id").isNotNull()
-        & F.col("user_id").isNotNull()
-        & F.col("title_id").isNotNull()
-        & F.col("event_type").isin(*VALID_EVENT_TYPES)
-        & F.col("event_ts").isNotNull()
-    )
-
-    valid_df = validated.filter("is_valid").drop("is_valid")
-    invalid_df = validated.filter("NOT is_valid").drop("is_valid")
-
-    # 4) Per-run dedupe by event_id (keeps latest event_ts per id)
-    w = Window.partitionBy("event_id").orderBy(F.col("event_ts").desc())
-    valid_df = (
-        valid_df
-        .withColumn("rn", F.row_number().over(w))
-        .filter("rn = 1")
-        .drop("rn")
-    )
-
-    # 5) Write outputs
-    #    - valid: partitioned Parquet in processed bucket
-    #    - invalid: raw Parquet in DLQ bucket
-    (
-        valid_df
-        .write
-        .mode("append")
-        .partitionBy("event_type")
-        .parquet(PROCESSED_PATH)
-    )
-
-    (
-        invalid_df
-        .write
-        .mode("append")
-        .parquet(DLQ_PATH)
-    )
-
-    # 6) Circuit breaker metrics
-    total_count = validated.count()
-    invalid_count = invalid_df.count()
-    invalid_ratio = (invalid_count / total_count) if total_count > 0 else 0.0
-
-    print(f"[DQ] total={total_count}, invalid={invalid_count}, ratio={invalid_ratio}")
-
-    # 7) If bad data too high -> push message to SNS + fail job
-    if invalid_ratio > INVALID_THRESHOLD:
-        sns = boto3.client("sns")
-
-        payload = {
-            "job_name": args["JOB_NAME"],
-            "run_id": args["JOB_RUN_ID"],
-            "invalid_ratio": invalid_ratio,
-            "dlq_path": DLQ_PATH,
-            "total_records": total_count,
-            "invalid_records": invalid_count,
-        }
-
-        sns.publish(
-            TopicArn=DATA_QUALITY_TOPIC_ARN,
-            Message=json.dumps(payload),
-            Subject="Netflix Glue Data Quality Circuit Breaker"
-        )
-
-        # Failing the job ensures downstream tables don't consume bad data
-        raise Exception("Circuit breaker triggered: invalid_ratio above threshold")
-
-    job.commit()
-
-
-if __name__ == "__main__":
-    main()
+job.commit()
