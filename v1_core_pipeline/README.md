@@ -55,6 +55,11 @@ Iska goal hai Netflix-style events ko raw se processed tak reliably le jaana, DQ
   - Folder exists, to be wired to Athena/Redshift and linked with example SQL.
 
 ---
+- Ingestion implementation (current):
+  - Sample event producer: `ingestion/kinesis_producer/sample_events_generator.py`
+  - This script sends example Netflix events into Kinesis (or another stream) which then land in the raw S3 layer.
+  - In a future refactor, the main ingestion job can be aligned under `v1_core_pipeline/01_ingestion/`.
+
 
 ## Next Steps Ideas (v1)
 
