@@ -1,0 +1,52 @@
+service: netflix-streaming
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: ap-south-1
+  stage: dev
+
+plugins:
+  - serverless-step-functions
+
+functions:
+  validation-lambda:
+    handler: src/validation_lambda.handler
+    memorySize: 128
+    timeout: 10
+
+stepFunctions:
+  stateMachines:
+    netflix-orchestrator-dev:
+      name: netflix-orchestrator-dev
+      definition:
+        Comment: "Netflix streaming batch orchestrator"
+        StartAt: ValidateInput
+        States:
+          ValidateInput:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            OutputPath: "$.Payload"
+            Parameters:
+              FunctionName: ${self:service}-dev-validation-lambda
+              Payload.$: "$"
+            Next: RunRawToProcessed
+
+          RunRawToProcessed:
+            Type: Task
+            Resource: arn:aws:states:::glue:startJobRun.sync
+            Parameters:
+              JobName: netflix-raw-to-processed
+            Next: RunProcessedToRedshift
+
+          RunProcessedToRedshift:
+            Type: Task
+            Resource: arn:aws:states:::glue:startJobRun.sync
+            Parameters:
+              JobName: netflix-processed-to-redshift
+            Next: SuccessState
+
+          SuccessState:
+            Type: Succeed
