@@ -359,11 +359,24 @@ Build dashboards with QuickSight or Streamlit.
 
 Extend schema to include richer playback metadata (duration, bitrate, errors).
 
-## AETHER Orchestrator (v2)
+---
 
-- AWS Step Functions + AWS Glue 5.0 based orchestration for the Netflix-style streaming pipeline.
-- Includes Bedrock-powered Sentinel layer for analyzing Glue/Data Quality failures.
-- See `docs/test_plan.md` and `tests/TESTING_NOTES_GLUE_RAW_TO_PROCESSED.md` for detailed debugging logs and test strategy.
+## 5. AETHER Orchestrator & Self‑Healing Plans
+
+As the next evolution of this project, I’m building **AETHER** – an orchestration and observability layer on top of the Netflix‑style pipeline:
+
+- **Step Functions–driven orchestration** for Glue 5.0 jobs and downstream steps.
+- **Sentinel error analysis** using Amazon Bedrock to inspect Glue/Data Quality failures and classify them (IAM vs data vs config).
+- **Bad‑data simulation** using `testing_tools/faker_netflix_bad_events.py` to generate corrupted or edge‑case events for testing.
+
+Related docs and notes:
+
+- `docs/aether-architecture.md` – high‑level AETHER + Sentinel architecture.
+- `docs/test_plan.md` – end‑to‑end test scenarios for Glue, DQ, and orchestrator.
+- `tests/TESTING_NOTES_GLUE_RAW_TO_PROCESSED.md` – detailed log of Glue 5.0 + IAM + DQ debugging sessions.
+
+The goal is to move from a “working pipeline” to a **self‑diagnosing, self‑documenting** data platform.
+
 
 
 ### 13. Conclusion
