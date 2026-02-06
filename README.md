@@ -359,5 +359,12 @@ Build dashboards with QuickSight or Streamlit.
 
 Extend schema to include richer playback metadata (duration, bitrate, errors).
 
+## AETHER Orchestrator (v2)
+
+- AWS Step Functions + AWS Glue 5.0 based orchestration for the Netflix-style streaming pipeline.
+- Includes Bedrock-powered Sentinel layer for analyzing Glue/Data Quality failures.
+- See `docs/test_plan.md` and `tests/TESTING_NOTES_GLUE_RAW_TO_PROCESSED.md` for detailed debugging logs and test strategy.
+
+
 ### 13. Conclusion
 This project demonstrates a production‑inspired, serverless data pipeline with clear separation of raw and processed zones, partitioned Parquet storage, Glue ETL, Athena analytics, and CloudWatch monitoring. It is scalable, fault‑tolerant, and extensible, making it a strong portfolio piece for data engineering roles.
