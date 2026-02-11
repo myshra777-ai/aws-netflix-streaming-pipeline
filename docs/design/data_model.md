@@ -95,3 +95,5 @@ FROM processed_netflix_events
 WHERE event_date = DATE '2026-01-27'
 LIMIT 50;
 These patterns align with common clickstream analytics use cases where date is the primary filter.
+
+Once DLQ is implemented, tighten schema (e.g., numeric fields as double) and route parsing failures to DLQ.
