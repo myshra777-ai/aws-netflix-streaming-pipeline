@@ -1,0 +1,20 @@
+{"id": null,        "event_type": "purchase", "amount": 500,       "ts": "2026-02-10T10:00:00Z"}
+{"id": "",          "event_type": "login",    "user": "ankit",     "ts": "2026-02-10T10:01:00Z"}
+{"user_id": "123",  "event_type": "click",                         "ts": "2026-02-10T10:02:00Z"}
+
+{"id": "EV-001",    "event_type": "SNOOPING",               "meta": "unknown_action"}
+{"id": "EV-002",    "event_type": 12345,                    "meta": "integer_type_error"}
+{"id": "EV-003",    "event_type": "hack_attempt_DROP_TABLE","meta": "injection_test"}
+{"id": "EV-004",    "event_type": " ",                      "meta": "empty_string_type"}
+
+{"id": "BIG-001",   "event_type": "image_upload", "payload": "iVBORw0...JUNK...", "ts": "2026-02-10T10:10:00Z"}
+{"id": "BIG-002",   "event_type": "log_dump",     "metadata": {"logs": ["error","warn","info"]}}
+
+{"id": "OLD-001",   "event_type": "purchase", "ts": "2020-01-01T00:00:00Z"}
+{"id": "OLD-002",   "event_type": "login",    "ts": "1970-01-01T00:00:00Z"}
+{"id": "FUTURE-001","event_type": "click",    "ts": "2030-12-31T23:59:59Z"}
+{"id": "INVALID-001","event_type": "purchase","ts": "yesterday"}
+
+{"id": "AETHER-001","event_type": "purchase", "amount": 120.50,      "ts": "2026-02-10T15:00:00Z"}
+{"id": "AETHER-002","event_type": "login",    "user_id": "U-99",     "ts": "2026-02-10T15:05:00Z"}
+{"id": "AETHER-003","event_type": "click",    "page": "homepage",    "ts": "2026-02-10T15:06:00Z"}

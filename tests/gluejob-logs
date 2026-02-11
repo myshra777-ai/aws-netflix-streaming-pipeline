@@ -1,0 +1,506 @@
+Driver logs
+Driver and executor log streams 
+
+INFO	2026-02-06T14:14:15,186	8048	org.apache.spark.util.ShutdownHookManager	[shutdown-hook-0]	60	Shutdown hook called
+INFO	2026-02-06T14:14:15,179	8041	com.amazonaws.services.glue.LogPusher	[shutdown-hook-0]	60	uploading file:///var/log/spark/apps to s3://aws-glue-assets-462634386608-ap-south-1/sparkHistoryLogs/
+Caused by: org.apache.spark.SparkUserAppException: User application exited with 1
+	at org.apache.spark.deploy.PythonRunner$.main(PythonRunner.scala:112)
+	at org.apache.spark.deploy.PythonRunner.main(PythonRunner.scala)
+	... 10 more
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at com.amazonaws.services.glue.SparkProcessLauncherPlugin.invoke(ProcessLauncher.scala:55)
+	at com.amazonaws.services.glue.SparkProcessLauncherPlugin.invoke$(ProcessLauncher.scala:55)
+	at com.amazonaws.services.glue.ProcessLauncher$$anon$1.invoke(ProcessLauncher.scala:193)
+	at com.amazonaws.services.glue.ProcessLauncher.launch(ProcessLauncher.scala:421)
+	at com.amazonaws.services.glue.ProcessLauncher$.main(ProcessLauncher.scala:35)
+	at com.amazonaws.services.glue.ProcessLauncher.main(ProcessLauncher.scala)
+INFO	2026-02-06T14:14:15,174	8036	com.amazonaws.services.glue.LogPusher	[main]	60	stopping
+INFO	2026-02-06T14:14:15,157	8019	com.amazonaws.services.glue.CloudWatchMetricsEmitter	[main]	34	Emit job error metrics
+INFO	2026-02-06T14:14:14,608	7470	com.amazonaws.services.glue.CloudWatchMetricsEmitter	[main]	34	Emit job error metrics
+INFO	2026-02-06T14:14:14,598	7460	com.amazonaws.services.glue.ProcessLauncher	[main]	714	enhancedFailureReason: Error Category: IMPORT_ERROR; Failed Line Number: 2; ImportError: cannot import name 'EvaluateDataQuality' from 'awsglue.transforms' (/home/hadoop/.local/lib/python3.11/site-packages/awsglue/transforms/__init__.py)
+INFO	2026-02-06T14:14:14,597	7459	com.amazonaws.services.glue.ProcessLauncher	[main]	689	Error Category: IMPORT_ERROR
+INFO	2026-02-06T14:14:14,537	7399	com.amazonaws.services.glue.ProcessLauncher	[main]	687	ExceptionErrorMessage failureReason: ImportError: cannot import name 'EvaluateDataQuality' from 'awsglue.transforms' (/home/hadoop/.local/lib/python3.11/site-packages/awsglue/transforms/__init__.py)
+INFO	2026-02-06T14:14:13,951	6813	com.amazonaws.services.glue.ProcessLauncher	[main]	661	Enhance failure reason and emit cloudwatch error metrics.
+INFO	2026-02-06T14:14:13,951	6813	com.amazonaws.services.glue.ProcessLauncher	[main]	60	postprocessing
+ERROR	2026-02-06T14:14:13,948	6810	com.amazonaws.services.glueexceptionanalysis.GlueExceptionAnalysisListener	[main]	9	[Glue Exception Analysis] Last Executed Line number from script netflix-raw-to-processed-v2.py: 2
+ERROR	2026-02-06T14:14:13,947	6809	com.amazonaws.services.glueexceptionanalysis.GlueExceptionAnalysisListener	[main]	9	[Glue Exception Analysis] {"Event":"GlueETLJobExceptionEvent","Timestamp":1770387253753,"Failure Reason":"Traceback (most recent call last):\n  File \"<frozen runpy>\", line 291, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py\", line 2, in <module>\n    from awsglue.transforms import EvaluateDataQuality\nImportError: cannot import name 'EvaluateDataQuality' from 'awsglue.transforms' (/home/hadoop/.local/lib/python3.11/site-packages/awsglue/transforms/__init__.py)","Stack Trace":[{"Declaring Class":"<module>","Method Name":"from awsglue.transforms import EvaluateDataQuality","File Name":"/tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py","Line Number":2}],"Last Executed Line number":2,"script":"netflix-raw-to-processed-v2.py"}
+ERROR	2026-02-06T14:14:13,705	6567	com.amazonaws.services.glue.ProcessLauncher	[main]	76	Error from Python:Traceback (most recent call last):
+  File "<frozen runpy>", line 291, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py", line 2, in <module>
+    from awsglue.transforms import EvaluateDataQuality
+ImportError: cannot import name 'EvaluateDataQuality' from 'awsglue.transforms' (/home/hadoop/.local/lib/python3.11/site-packages/awsglue/transforms/__init__.py)
+INFO	2026-02-06T14:14:12,144	5006	com.amazonaws.services.glue.SafeLogging	[main]	60	Initializing logging subsystem
+INFO	2026-02-06T14:14:12,109	4971	com.amazonaws.services.gluedi.sensei.autodebugging.AutoDebuggingProxy	[main]	198	initializing AutoDebuggingProxy
+INFO	2026-02-06T14:14:12,025	4887	com.amazonaws.services.glue.utils.EndpointConfig$	[main]	88	Endpoints: {credentials_provider=com.amazonaws.auth.DefaultAWSCredentialsProviderChain, glue.endpoint=https://glue.ap-south-1.amazonaws.com, lakeformation.endpoint=https://lakeformation.ap-south-1.amazonaws.com, jes.endpoint=https://glue-jes.ap-south-1.amazonaws.com, region=ap-south-1}
+INFO	2026-02-06T14:14:11,766	4628	com.amazonaws.services.glue.utils.EndpointConfig$	[main]	34	 STAGE is prod
+INFO	2026-02-06T14:14:11,247	4109	com.amazon.ws.emr.hadoop.fs.util.ClientConfigurationFactory	[main]	85	Set initial getObject socket timeout to 2000 ms.
+INFO	2026-02-06T14:14:11,083	3945	com.amazon.ws.emr.hadoop.fs.guice.DefaultAWSCredentialsProviderFactory	[main]	72	Unable to create provider using constructor: DefaultAWSCredentialsProviderChain(java.net.URI, org.apache.hadoop.conf.Configuration)
+WARN	2026-02-06T14:14:10,779	3641	com.amazonaws.util.VersionInfoUtils	[main]	85	The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:1619)
+at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44)
+at com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75)
+at com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66)
+at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60)
+at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54)
+at java.base/java.lang.Class.forName0(Native Method)
+at java.base/java.lang.Class.forName(Class.java:377)
+at com.amazon.ws.emr.hadoop.fs.guice.DefaultAWSCredentialsProviderFactory.getCustomAwsCredentialsProvider(DefaultAWSCredentialsProviderFactory.java:61)
+at com.amazon.ws.emr.hadoop.fs.guice.DefaultAWSCredentialsProviderFactory.getAwsCredentialsProviderChain(DefaultAWSCredentialsProviderFactory.java:32)
+at com.amazon.ws.emr.hadoop.fs.guice.DefaultAWSCredentialsProviderFactory.getAwsCredentialsProvider(DefaultAWSCredentialsProviderFactory.java:26)
+at com.amazon.ws.emr.hadoop.fs.guice.EmrFSProdModule.getAwsCredentialsProvider(EmrFSProdModule.java:81)
+at com.amazon.ws.emr.hadoop.fs.guice.EmrFSProdModule.createAmazonS3LiteClient(EmrFSProdModule.java:93)
+at com.amazon.ws.emr.hadoop.fs.guice.EmrFSProdModule.createAmazonS3Lite(EmrFSProdModule.java:266)
+at com.amazon.ws.emr.hadoop.fs.guice.EmrFSBaseModule.provideAmazonS3Lite(EmrFSBaseModule.java:112)
+at com.amazon.ws.emr.hadoop.fs.guice.EmrFSBaseModule$$FastClassByGuice$$1363436.GUICE$TRAMPOLINE(<generated>)
+at com.amazon.ws.emr.hadoop.fs.guice.EmrFSBaseModule$$FastClassByGuice$$1363436.apply(<generated>)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderMethod$FastClassProviderMethod.doProvision(ProviderMethod.java:260)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderMethod.doProvision(ProviderMethod.java:171)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.provision(InternalProviderInstanceBindingImpl.java:185)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.get(InternalProviderInstanceBindingImpl.java:162)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:169)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:45)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:40)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:60)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderMethod.doProvision(ProviderMethod.java:171)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.provision(InternalProviderInstanceBindingImpl.java:185)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.get(InternalProviderInstanceBindingImpl.java:162)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:169)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:45)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingleFieldInjector.inject(SingleFieldInjector.java:50)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:146)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:124)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:91)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:300)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.FactoryProxy.get(FactoryProxy.java:60)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InjectorImpl$1.get(InjectorImpl.java:1101)
+at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1134)
+at com.amazon.ws.emr.hadoop.fs.EmrFileSystem.initialize(EmrFileSystem.java:95)
+at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3670)
+at org.apache.hadoop.fs.FileSystem.access$300(FileSystem.java:171)
+at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3771)
+at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3722)
+at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:564)
+at org.apache.hadoop.fs.Path.getFileSystem(Path.java:374)
+at com.amazonaws.services.glue.LogPusher.<init>(LogPusher.scala:25)
+at com.amazonaws.services.glue.ProcessLauncher.$anonfun$logPusher$3(ProcessLauncher.scala:256)
+at scala.Option.map(Option.scala:230)
+at com.amazonaws.services.glue.ProcessLauncher.$anonfun$logPusher$2(ProcessLauncher.scala:222)
+at scala.Option$WithFilter.flatMap(Option.scala:271)
+at com.amazonaws.services.glue.ProcessLauncher.<init>(ProcessLauncher.scala:213)
+at com.amazonaws.services.glue.ProcessLauncher.<init>(ProcessLauncher.scala:194)
+at com.amazonaws.services.glue.ProcessLauncher$.main(ProcessLauncher.scala:34)
+at com.amazonaws.services.glue.ProcessLauncher.main(ProcessLauncher.scala)
+INFO	2026-02-06T14:14:10,218	3080	com.amazon.ws.emr.hadoop.fs.util.PlatformInfo	[main]	71	Unable to read clusterId from /var/lib/info/job-flow.json, out of places to look
+INFO	2026-02-06T14:14:10,217	3079	com.amazon.ws.emr.hadoop.fs.util.PlatformInfo	[main]	63	Unable to read clusterId from /var/lib/instance-controller/extraInstanceData.json, trying EMR job-flow data file: /var/lib/info/job-flow.json
+INFO	2026-02-06T14:14:10,216	3078	com.amazon.ws.emr.hadoop.fs.util.PlatformInfo	[main]	56	Unable to read clusterId from http://localhost:8321/configuration, trying extra instance data file: /var/lib/instance-controller/extraInstanceData.json
+INFO	2026-02-06T14:14:09,290	2152	com.amazonaws.services.glue.LogPusher	[main]	60	legacyLogging: true - logs will be written with spark application ID
+INFO	2026-02-06T14:14:09,289	2151	com.amazonaws.services.glue.LogPusher	[main]	60	standardLogging: true - logs will be written with job run ID or session ID
+INFO	2026-02-06T14:14:09,277	2139	com.amazonaws.services.glue.SparkUICleaner	[main]	60	SparkUILogFileCleanerThread started
+Fri Feb  6 14:14:07 UTC 2026
+Launching ...
+Running autoDebugger shutdown hook.
+INFO	2026-02-06T14:14:06,710	26747	com.amazonaws.services.glue.utils.concurrent.GlueConcurrentAsyncProcessingService	[main]	50	shutdownAsyncProcessing has been Started
+INFO	2026-02-06T14:14:06,711	26748	com.amazonaws.services.glue.utils.concurrent.GlueConcurrentAsyncProcessingService	[main]	76	shutdownAsyncProcessing has been completed
+INFO	2026-02-06T14:14:06,702	26739	com.amazonaws.services.glue.utils.concurrent.PythonModuleTask	[pool-4-thread-1]	39	Setting Up Virtual Env and Application Python Modules has been completed in async mode
+INFO	2026-02-06T14:14:06,566	26603	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute /usr/bin/bash /tmp/glue-job-17628234504847662181/pythonmodules/createvenvzip.sh /tmp/glue_venv /tmp/glue-job-17628234504847662181_glue_venv.zip
+INFO	2026-02-06T14:14:03,781	23818	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute /usr/bin/bash /tmp/glue-job-17628234504847662181/pythonmodules/pythonmoduleinstaller.sh /tmp/glue_venv --no-index --no-deps /tmp/glue-job-17628234504847662181/python/4o4gPV-AwsGlueMLLibs/amzn_awsgluemlpythonlibs-1.0-py3-none-any.whl
+INFO	2026-02-06T14:14:03,775	23812	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute unzip /tmp/glue-job-17628234504847662181/python/4o4gPV-AwsGlueMLLibs.py.zip -d /tmp/glue-job-17628234504847662181/python/4o4gPV-AwsGlueMLLibs
+INFO	2026-02-06T14:14:02,526	22563	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute /usr/bin/bash /tmp/glue-job-17628234504847662181/pythonmodules/pythonmoduleinstaller.sh /tmp/glue_venv --no-index --no-deps /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882/amzn_awsgluelibs-5.0.882-py3-none-any.whl
+INFO	2026-02-06T14:14:02,482	22519	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute unzip /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882.py.zip -d /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882
+INFO	2026-02-06T14:14:00,290	20327	com.amazonaws.services.glue.launch.helpers.FileManager	[main]	119	Script should be downloaded at /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py 
+INFO	2026-02-06T14:14:00,289	20326	com.amazonaws.services.glue.FileDownloader	[sdk-async-response-3-0]	146	Object downloaded. Details: GetObjectResponse(AcceptRanges=bytes, LastModified=2026-02-06T14:13:22Z, ContentLength=2466, ETag="cc9b6158748ca6042006bc8d60e4f4f6", ContentType=application/octet-stream; charset=UTF-8, ServerSideEncryption=AES256, Metadata={})
+INFO	2026-02-06T14:13:58,821	18858	com.amazonaws.services.glue.FileDownloader	[main]	139	Download bucket: aws-glue-assets-462634386608-ap-south-1 key: scripts/netflix-raw-to-processed-v2.py to /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py with usingProxy: false and isProxyDisabled: true
+INFO	2026-02-06T14:13:58,791	18828	com.amazonaws.services.glue.utils.AWSS3Utils$	[main]	29	Encoding S3 URI s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py
+INFO	2026-02-06T14:13:58,792	18829	com.amazonaws.services.glue.utils.AWSS3Utils$	[main]	34	Encoded S3 URI to s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py
+INFO	2026-02-06T14:13:58,414	18451	com.amazonaws.services.glue.FileDownloader	[main]	96	downloading s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py file to destination location: /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py
+INFO	2026-02-06T14:13:58,410	18447	com.amazonaws.services.glue.PrepareLaunch	[main]	196	list of connectors to be added in classpath: List()
+INFO	2026-02-06T14:13:57,944	17981	com.amazonaws.services.glue.launch.helpers.ConnectionsManager	[main]	78	GLUE_CONNECTIVITY: attached connection types: ListBuffer()
+INFO	2026-02-06T14:13:57,790	17827	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/selected/native
+INFO	2026-02-06T14:13:57,791	17828	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/marketplace
+INFO	2026-02-06T14:13:57,789	17826	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/amazon/certs
+INFO	2026-02-06T14:13:57,788	17825	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/amazon
+INFO	2026-02-06T14:13:57,786	17823	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/selected
+INFO	2026-02-06T14:13:57,787	17824	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/exception_catch
+INFO	2026-02-06T14:13:57,784	17821	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors
+INFO	2026-02-06T14:13:57,746	17783	com.amazonaws.services.glue.launch.helpers.LoggerPropsManager	[main]	78	setting up the log4j.configurationFile=/tmp/glue-job-17628234504847662181/glue-318757428879587245log4j2.properties
+INFO	2026-02-06T14:13:56,932	16969	com.amazonaws.services.glue.FileDownloader	[main]	96	downloading /tmp/glue-318757428879587245log4j2.properties file to destination location: /tmp/glue-job-17628234504847662181/glue-318757428879587245log4j2.properties
+WARN	2026-02-06T14:13:56,923	16960	com.amazonaws.services.glue.launch.helpers.LoggerPropsManager	[main]	60	Logger setup failed for exception analysis: Cannot invoke "java.net.URL.toURI()" because the return value of "java.lang.Class.getResource(String)" is null
+INFO	2026-02-06T14:13:56,914	16951	com.amazonaws.services.glue.launch.helpers.LoggerPropsManager	[main]	31	setupLoggerProperties...
+INFO	2026-02-06T14:13:56,885	16922	com.amazonaws.services.glue.launch.helpers.SparkPropsManagerHelper	[main]	114	optimizeParallelismConfigs started 
+INFO	2026-02-06T14:13:56,808	16845	com.amazonaws.services.gluedi.sensei.autodebugging.AutoDebuggingProxy	[main]	203	registering spark listeners
+INFO	2026-02-06T14:13:56,769	16806	com.amazonaws.services.gluedi.sensei.autodebugging.AutoDebuggingProxy	[main]	198	initializing AutoDebuggingProxy
+INFO	2026-02-06T14:13:55,364	15401	com.amazonaws.services.glue.utils.AWSClientUtils$	[main]	97	AWSClientUtils: create aws sts client with conf: proxy hostnull, proxy port 0
+INFO	2026-02-06T14:13:55,265	15302	com.amazonaws.services.glue.utils.EndpointConfig$	[main]	88	Endpoints: {credentials_provider=com.amazonaws.auth.DefaultAWSCredentialsProviderChain, glue.endpoint=https://glue.ap-south-1.amazonaws.com, lakeformation.endpoint=https://lakeformation.ap-south-1.amazonaws.com, jes.endpoint=https://glue-jes.ap-south-1.amazonaws.com, region=ap-south-1}
+INFO	2026-02-06T14:13:54,838	14875	com.amazonaws.services.glue.utils.EndpointConfig$	[main]	34	 STAGE is prod
+INFO	2026-02-06T14:13:54,832	14869	com.amazonaws.services.glue.launch.helpers.SparkPropsManagerHelper	[main]	100	
+proxy {
+  host = null
+  port = -1
+}
+INFO	2026-02-06T14:13:54,764	14801	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute python3.11 -m venv --clear /tmp/glue_venv
+INFO	2026-02-06T14:13:54,756	14793	com.amazonaws.services.glue.launch.helpers.PrepareLaunchProperties	[main]	89	Get job script: netflix-raw-to-processed-v2.py.
+INFO	2026-02-06T14:13:54,754	14791	com.amazonaws.services.glue.utils.concurrent.PythonModuleTask	[pool-4-thread-1]	25	Setting Up Virtual Env and Application/Customer Provided Python Modules started in async mode
+1770387232904
+26/02/06 14:13:52 INFO GlueLibsDownloader: Elapsed time: 2669 millis
+26/02/06 14:13:47 WARN VersionInfoUtils: The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:1619)
+at glue.shaded.com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at glue.shaded.com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at glue.shaded.com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44)
+at glue.shaded.com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38)
+at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111)
+at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91)
+at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75)
+at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58)
+at glue.shaded.com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66)
+at glue.shaded.com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55)
+at glue.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60)
+at glue.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54)
+at glue.shaded.com.amazonaws.services.s3.AmazonS3ClientBuilder.standard(AmazonS3ClientBuilder.java:46)
+at glue.shaded.com.amazonaws.services.s3.AmazonS3Client.builder(AmazonS3Client.java:740)
+at com.amazonaws.services.glue.GlueLibsDownloader$Builder.getS3Client(GlueLibsDownloader.java:291)
+at com.amazonaws.services.glue.GlueLibsDownloader$Builder.build(GlueLibsDownloader.java:283)
+at com.amazonaws.services.glue.GlueBootstrap.downloadGlueLibs(GlueBootstrap.java:382)
+at com.amazonaws.services.glue.GlueBootstrap.lambda$setUpGlueAndUserLibs$1(GlueBootstrap.java:133)
+at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+at java.base/java.lang.Thread.run(Thread.java:840)
+26/02/06 14:13:47 INFO GlueBootstrap: Downloading Glue libs...
+26/02/06 14:13:47 INFO GlueBootstrap: Glue Bootstrapping the driver...
+26/02/06 14:13:47 INFO GlueBootstrap: Glue Bootstrapping...
+openjdk version "17.0.17" 2025-10-21 LTS
+OpenJDK Runtime Environment Corretto-17.0.17.10.1 (build 17.0.17+10-LTS)
+OpenJDK 64-Bit Server VM Corretto-17.0.17.10.1 (build 17.0.17+10-LTS, mixed mode, sharing)
+/etc/alternatives/jre/bin/java --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.nio.cs=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.base/jdk.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.ref=ALL-UNNAMED --add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED --add-opens=java.base/jdk.internal.util=ALL-UNNAMED --add-opens=java.base/jdk.internal.util.random=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED -XX:+IgnoreUnrecognizedVMOptions -Djavax.net.ssl.trustStore=/opt/amazon/certs/InternalAndExternalAndAWSTrustStore.jks -Djavax.net.ssl.trustStoreType=JKS -Djavax.net.ssl.trustStorePassword=amazon -DRDS_ROOT_CERT_PATH=/opt/amazon/certs/rds-combined-ca-bundle.pem -DREDSHIFT_ROOT_CERT_PATH=/opt/amazon/certs/redshift-ssl-ca-cert.pem -DRDS_TRUSTSTORE_URL=file:/opt/amazon/certs/InternalAndExternalAndAWSTrustStore.jks -cp /usr/share/aws/aws-glue-shuffle/*:/usr/share/aws/emr-glue-bootstrap/*:/usr/lib/spark/jars/*:/usr/lib/spark/conf:/usr/share/aws/aws-java-sdk-v2/*:/usr/share/aws/*:/usr/share/aws/hmclient/lib/aws-glue-datacatalog-spark-client.jar:/usr/share/aws/hmclient/lib/*:/usr/share/aws/iceberg/lib/*:/usr/share/aws/delta/lib/*:/usr/lib/hudi/*:/usr/share/aws/redshift/jdbc/*:/usr/share/aws/redshift/spark-redshift/lib/*:/usr/share/aws/glue-connectors/lib/*:/usr/share/aws/glue-pii-dependencies/lib/*:/usr/share/aws/datazone-openlineage-spark/lib/*:/usr/lib/hadoop/lib/*::/usr/lib/hadoop-lzo/lib/*:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*:/usr/share/aws/emr/ddb/lib/emr-ddb-hadoop.jar:/usr/share/aws/emr/goodies/lib/emr-hadoop-goodies.jar:/usr/share/aws/emr/cloudwatch-sink/lib/*:/usr/share/aws/emr/security/conf:/usr/share/aws/emr/security/lib/*:/usr/lib/hadoop/*:/etc/hadoop/conf:/usr/share/java/Hive-JSON-Serde/* -Dlog4j2.configurationFile=/etc/spark/conf.dist/log4j2.properties com.amazonaws.services.glue.GlueBootstrap --conf spark.dynamicAllocation.enabled=true --conf spark.shuffle.service.enabled=true --conf spark.dynamicAllocation.minExecutors=1 --conf spark.dynamicAllocation.maxExecutors=1 --conf spark.executor.memory=10g --conf spark.driver.memory=10g --conf spark.network.timeout=600   --enable-glue-datacatalog true  --glue-di-packages-correlation-ids 20260129-153336_,20260129-153336_,6416010234,6416010234 --job-bookmark-option job-bookmark-disable --TempDir s3://aws-glue-assets-462634386608-ap-south-1/temporary/ --internal-lib-urls https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/aws-glue-di-libs/java17/5.0.882/pqu22S-aws-glue-di-package-5.0.882.jar?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/aws-glue-dataplane-python/java17/5.0.882/i4QT7Z-AWSGlueDataplanePython-5.0.882.py.zip?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/AwsGlueMLLibsPython/java17/5.0.463/4o4gPV-AwsGlueMLLibs.py.zip?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/AwsGlueMLLibs/java17/5.0.463/dWqH17-AwsGlueMLLibs.jar?[REDACTED]  --JOB_ID j_a5dffbdb46c95d32b6d8e2d41d5f7720d2435512f7fc228124d935c44a6ee176 --enable-metrics true --enable-spark-ui true --spark-event-logs-path s3://aws-glue-assets-462634386608-ap-south-1/sparkHistoryLogs/  --enable-job-insights true  --JOB_RUN_ID jr_8180fc27a867bf7fc7d2f4a517f87bfe68f0ecc518174a6fa8698035e63f067f --enable-observability-metrics true --scriptLocation s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py  --job-language python --tenant-internal glue --JOB_NAME netflix-raw-to-processed-v2
+Fri Feb  6 14:13:38 UTC 2026
+Preparing ...
+
+CloudShell
+Feedback
+
+2026-02-06T14:13:38.457Z
+Preparing ...
+
+Preparing ...
+2026-02-06T14:13:38.688Z
+Fri Feb  6 14:13:38 UTC 2026
+
+Fri Feb 6 14:13:38 UTC 2026
+2026-02-06T14:13:38.704Z
+/etc/alternatives/jre/bin/java --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.nio.cs=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.base/jdk.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.ref=ALL-UNNAMED --add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED --add-opens=java.base/jdk.internal.util=ALL-UNNAMED --add-opens=java.base/jdk.internal.util.random=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED -XX:+IgnoreUnrecognizedVMOptions -Djavax.net.ssl.trustStore=/opt/amazon/certs/InternalAndExternalAndAWSTrustStore.jks -Djavax.net.ssl.trustStoreType=JKS -Djavax.net.ssl.trustStorePassword=amazon -DRDS_ROOT_CERT_PATH=/opt/amazon/certs/rds-combined-ca-bundle.pem -DREDSHIFT_ROOT_CERT_PATH=/opt/amazon/certs/redshift-ssl-ca-cert.pem -DRDS_TRUSTSTORE_URL=file:/opt/amazon/certs/InternalAndExternalAndAWSTrustStore.jks -cp /usr/share/aws/aws-glue-shuffle/*:/usr/share/aws/emr-glue-bootstrap/*:/usr/lib/spark/jars/*:/usr/lib/spark/conf:/usr/share/aws/aws-java-sdk-v2/*:/usr/share/aws/*:/usr/share/aws/hmclient/lib/aws-glue-datacatalog-spark-client.jar:/usr/share/aws/hmclient/lib/*:/usr/share/aws/iceberg/lib/*:/usr/share/aws/delta/lib/*:/usr/lib/hudi/*:/usr/share/aws/redshift/jdbc/*:/usr/share/aws/redshift/spark-redshift/lib/*:/usr/share/aws/glue-connectors/lib/*:/usr/share/aws/glue-pii-dependencies/lib/*:/usr/share/aws/datazone-openlineage-spark/lib/*:/usr/lib/hadoop/lib/*::/usr/lib/hadoop-lzo/lib/*:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*:/usr/share/aws/emr/ddb/lib/emr-ddb-hadoop.jar:/usr/share/aws/emr/goodies/lib/emr-hadoop-goodies.jar:/usr/share/aws/emr/cloudwatch-sink/lib/*:/usr/share/aws/emr/security/conf:/usr/share/aws/emr/security/lib/*:/usr/lib/hadoop/*:/etc/hadoop/conf:/usr/share/java/Hive-JSON-Serde/* -Dlog4j2.configurationFile=/etc/spark/conf.dist/log4j2.properties com.amazonaws.services.glue.GlueBootstrap --conf spark.dynamicAllocation.enabled=true --conf spark.shuffle.service.enabled=true --conf spark.dynamicAllocation.minExecutors=1 --conf spark.dynamicAllocation.maxExecutors=1 --conf spark.executor.memory=10g --conf spark.driver.memory=10g --conf spark.network.timeout=600   --enable-glue-datacatalog true  --glue-di-packages-correlation-ids 20260129-153336_,20260129-153336_,6416010234,6416010234 --job-bookmark-option job-bookmark-disable --TempDir s3://aws-glue-assets-462634386608-ap-south-1/temporary/ --internal-lib-urls https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/aws-glue-di-libs/java17/5.0.882/pqu22S-aws-glue-di-package-5.0.882.jar?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/aws-glue-dataplane-python/java17/5.0.882/i4QT7Z-AWSGlueDataplanePython-5.0.882.py.zip?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/AwsGlueMLLibsPython/java17/5.0.463/4o4gPV-AwsGlueMLLibs.py.zip?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/AwsGlueMLLibs/java17/5.0.463/dWqH17-AwsGlueMLLibs.jar?[REDACTED]  --JOB_ID j_a5dffbdb46c95d32b6d8e2d41d5f7720d2435512f7fc228124d935c44a6ee176 --enable-metrics true --enable-spark-ui true --spark-event-logs-path s3://aws-glue-assets-462634386608-ap-south-1/sparkHistoryLogs/  --enable-job-insights true  --JOB_RUN_ID jr_8180fc27a867bf7fc7d2f4a517f87bfe68f0ecc518174a6fa8698035e63f067f --enable-observability-metrics true --scriptLocation s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py  --job-language python --tenant-internal glue --JOB_NAME netflix-raw-to-processed-v2
+
+/etc/alternatives/jre/bin/java --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.nio.cs=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.base/jdk.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.ref=ALL-UNNAMED --add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED --add-opens=java.base/jdk.internal.util=ALL-UNNAMED --add-opens=java.base/jdk.internal.util.random=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED -XX:+IgnoreUnrecognizedVMOptions -Djavax.net.ssl.trustStore=/opt/amazon/certs/InternalAndExternalAndAWSTrustStore.jks -Djavax.net.ssl.trustStoreType=JKS -Djavax.net.ssl.trustStorePassword=amazon -DRDS_ROOT_CERT_PATH=/opt/amazon/certs/rds-combined-ca-bundle.pem -DREDSHIFT_ROOT_CERT_PATH=/opt/amazon/certs/redshift-ssl-ca-cert.pem -DRDS_TRUSTSTORE_URL=file:/opt/amazon/certs/InternalAndExternalAndAWSTrustStore.jks -cp /usr/share/aws/aws-glue-shuffle/*:/usr/share/aws/emr-glue-bootstrap/*:/usr/lib/spark/jars/*:/usr/lib/spark/conf:/usr/share/aws/aws-java-sdk-v2/*:/usr/share/aws/*:/usr/share/aws/hmclient/lib/aws-glue-datacatalog-spark-client.jar:/usr/share/aws/hmclient/lib/*:/usr/share/aws/iceberg/lib/*:/usr/share/aws/delta/lib/*:/usr/lib/hudi/*:/usr/share/aws/redshift/jdbc/*:/usr/share/aws/redshift/spark-redshift/lib/*:/usr/share/aws/glue-connectors/lib/*:/usr/share/aws/glue-pii-dependencies/lib/*:/usr/share/aws/datazone-openlineage-spark/lib/*:/usr/lib/hadoop/lib/*::/usr/lib/hadoop-lzo/lib/*:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*:/usr/share/aws/emr/ddb/lib/emr-ddb-hadoop.jar:/usr/share/aws/emr/goodies/lib/emr-hadoop-goodies.jar:/usr/share/aws/emr/cloudwatch-sink/lib/*:/usr/share/aws/emr/security/conf:/usr/share/aws/emr/security/lib/*:/usr/lib/hadoop/*:/etc/hadoop/conf:/usr/share/java/Hive-JSON-Serde/* -Dlog4j2.configurationFile=/etc/spark/conf.dist/log4j2.properties com.amazonaws.services.glue.GlueBootstrap --conf spark.dynamicAllocation.enabled=true --conf spark.shuffle.service.enabled=true --conf spark.dynamicAllocation.minExecutors=1 --conf spark.dynamicAllocation.maxExecutors=1 --conf spark.executor.memory=10g --conf spark.driver.memory=10g --conf spark.network.timeout=600 --enable-glue-datacatalog true --glue-di-packages-correlation-ids 20260129-153336_,20260129-153336_,6416010234,6416010234 --job-bookmark-option job-bookmark-disable --TempDir s3://aws-glue-assets-462634386608-ap-south-1/temporary/ --internal-lib-urls https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/aws-glue-di-libs/java17/5.0.882/pqu22S-aws-glue-di-package-5.0.882.jar?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/aws-glue-dataplane-python/java17/5.0.882/i4QT7Z-AWSGlueDataplanePython-5.0.882.py.zip?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/AwsGlueMLLibsPython/java17/5.0.463/4o4gPV-AwsGlueMLLibs.py.zip?[REDACTED],https://prod-ap-south-1-package-distribution-artifacts-bucket.s3.ap-south-1.amazonaws.com/002/Glue5.0/AwsGlueMLLibs/java17/5.0.463/dWqH17-AwsGlueMLLibs.jar?[REDACTED] --JOB_ID j_a5dffbdb46c95d32b6d8e2d41d5f7720d2435512f7fc228124d935c44a6ee176 --enable-metrics true --enable-spark-ui true --spark-event-logs-path s3://aws-glue-assets-462634386608-ap-south-1/sparkHistoryLogs/ --enable-job-insights true --JOB_RUN_ID jr_8180fc27a867bf7fc7d2f4a517f87bfe68f0ecc518174a6fa8698035e63f067f --enable-observability-metrics true --scriptLocation s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py --job-language python --tenant-internal glue --JOB_NAME netflix-raw-to-processed-v2
+2026-02-06T14:13:39.612Z
+openjdk version "17.0.17" 2025-10-21 LTS
+OpenJDK Runtime Environment Corretto-17.0.17.10.1 (build 17.0.17+10-LTS)
+
+openjdk version "17.0.17" 2025-10-21 LTS OpenJDK Runtime Environment Corretto-17.0.17.10.1 (build 17.0.17+10-LTS)
+2026-02-06T14:13:39.612Z
+OpenJDK 64-Bit Server VM Corretto-17.0.17.10.1 (build 17.0.17+10-LTS, mixed mode, sharing)
+
+OpenJDK 64-Bit Server VM Corretto-17.0.17.10.1 (build 17.0.17+10-LTS, mixed mode, sharing)
+2026-02-06T14:13:47.639Z
+26/02/06 14:13:47 INFO GlueBootstrap: Glue Bootstrapping...
+
+26/02/06 14:13:47 INFO GlueBootstrap: Glue Bootstrapping...
+2026-02-06T14:13:47.643Z
+26/02/06 14:13:47 INFO GlueBootstrap: Glue Bootstrapping the driver...
+
+26/02/06 14:13:47 INFO GlueBootstrap: Glue Bootstrapping the driver...
+2026-02-06T14:13:47.710Z
+26/02/06 14:13:47 INFO GlueBootstrap: Downloading Glue libs...
+
+26/02/06 14:13:47 INFO GlueBootstrap: Downloading Glue libs...
+2026-02-06T14:13:47.944Z
+26/02/06 14:13:47 WARN VersionInfoUtils: The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:1619)
+at glue.shaded.com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at glue.shaded.com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at glue.shaded.com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44)
+at glue.shaded.com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38)
+at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111)
+at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91)
+at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75)
+at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58)
+at glue.shaded.com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66)
+at glue.shaded.com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55)
+at glue.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60)
+at glue.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54)
+at glue.shaded.com.amazonaws.services.s3.AmazonS3ClientBuilder.standard(AmazonS3ClientBuilder.java:46)
+at glue.shaded.com.amazonaws.services.s3.AmazonS3Client.builder(AmazonS3Client.java:740)
+at com.amazonaws.services.glue.GlueLibsDownloader$Builder.getS3Client(GlueLibsDownloader.java:291)
+at com.amazonaws.services.glue.GlueLibsDownloader$Builder.build(GlueLibsDownloader.java:283)
+at com.amazonaws.services.glue.GlueBootstrap.downloadGlueLibs(GlueBootstrap.java:382)
+at com.amazonaws.services.glue.GlueBootstrap.lambda$setUpGlueAndUserLibs$1(GlueBootstrap.java:133)
+at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+at java.base/java.lang.Thread.run(Thread.java:840)
+
+26/02/06 14:13:47 WARN VersionInfoUtils: The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/ You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'. This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'. The AWS SDK for Java 1.x is being used here: at java.base/java.lang.Thread.getStackTrace(Thread.java:1619) at glue.shaded.com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81) at glue.shaded.com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59) at glue.shaded.com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44) at glue.shaded.com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38) at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111) at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91) at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75) at glue.shaded.com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58) at glue.shaded.com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66) at glue.shaded.com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55) at glue.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60) at glue.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54) at glue.shaded.com.amazonaws.services.s3.AmazonS3ClientBuilder.standard(AmazonS3ClientBuilder.java:46) at glue.shaded.com.amazonaws.services.s3.AmazonS3Client.builder(AmazonS3Client.java:740) at com.amazonaws.services.glue.GlueLibsDownloader$Builder.getS3Client(GlueLibsDownloader.java:291) at com.amazonaws.services.glue.GlueLibsDownloader$Builder.build(GlueLibsDownloader.java:283) at com.amazonaws.services.glue.GlueBootstrap.downloadGlueLibs(GlueBootstrap.java:382) at com.amazonaws.services.glue.GlueBootstrap.lambda$setUpGlueAndUserLibs$1(GlueBootstrap.java:133) at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) at java.base/java.lang.Thread.run(Thread.java:840)
+2026-02-06T14:13:52.588Z
+26/02/06 14:13:52 INFO GlueLibsDownloader: Elapsed time: 2669 millis
+
+26/02/06 14:13:52 INFO GlueLibsDownloader: Elapsed time: 2669 millis
+2026-02-06T14:13:52.908Z
+1770387232904
+
+1770387232904
+2026-02-06T14:13:54.754Z
+INFO	2026-02-06T14:13:54,754	14791	com.amazonaws.services.glue.utils.concurrent.PythonModuleTask	[pool-4-thread-1]	25	Setting Up Virtual Env and Application/Customer Provided Python Modules started in async mode
+
+INFO 2026-02-06T14:13:54,754 14791 com.amazonaws.services.glue.utils.concurrent.PythonModuleTask [pool-4-thread-1] 25 Setting Up Virtual Env and Application/Customer Provided Python Modules started in async mode
+2026-02-06T14:13:54.757Z
+INFO	2026-02-06T14:13:54,756	14793	com.amazonaws.services.glue.launch.helpers.PrepareLaunchProperties	[main]	89	Get job script: netflix-raw-to-processed-v2.py.
+
+INFO 2026-02-06T14:13:54,756 14793 com.amazonaws.services.glue.launch.helpers.PrepareLaunchProperties [main] 89 Get job script: netflix-raw-to-processed-v2.py.
+2026-02-06T14:13:54.764Z
+INFO	2026-02-06T14:13:54,764	14801	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute python3.11 -m venv --clear /tmp/glue_venv
+
+INFO 2026-02-06T14:13:54,764 14801 com.amazonaws.services.glue.PythonModuleInstaller [pool-4-thread-1] 178 Command to Execute python3.11 -m venv --clear /tmp/glue_venv
+2026-02-06T14:13:54.832Z
+INFO	2026-02-06T14:13:54,832	14869	com.amazonaws.services.glue.launch.helpers.SparkPropsManagerHelper	[main]	100	
+proxy {
+  host = null
+  port = -1
+}
+
+INFO 2026-02-06T14:13:54,832 14869 com.amazonaws.services.glue.launch.helpers.SparkPropsManagerHelper [main] 100 proxy { host = null port = -1 }
+2026-02-06T14:13:54.838Z
+INFO	2026-02-06T14:13:54,838	14875	com.amazonaws.services.glue.utils.EndpointConfig$	[main]	34	 STAGE is prod
+
+INFO 2026-02-06T14:13:54,838 14875 com.amazonaws.services.glue.utils.EndpointConfig$ [main] 34 STAGE is prod
+2026-02-06T14:13:55.265Z
+INFO	2026-02-06T14:13:55,265	15302	com.amazonaws.services.glue.utils.EndpointConfig$	[main]	88	Endpoints: {credentials_provider=com.amazonaws.auth.DefaultAWSCredentialsProviderChain, glue.endpoint=https://glue.ap-south-1.amazonaws.com, lakeformation.endpoint=https://lakeformation.ap-south-1.amazonaws.com, jes.endpoint=https://glue-jes.ap-south-1.amazonaws.com, region=ap-south-1}
+
+INFO 2026-02-06T14:13:55,265 15302 com.amazonaws.services.glue.utils.EndpointConfig$ [main] 88 Endpoints: {credentials_provider=com.amazonaws.auth.DefaultAWSCredentialsProviderChain, glue.endpoint=https://glue.ap-south-1.amazonaws.com, lakeformation.endpoint=https://lakeformation.ap-south-1.amazonaws.com, jes.endpoint=https://glue-jes.ap-south-1.amazonaws.com, region=ap-south-1}
+2026-02-06T14:13:55.364Z
+INFO	2026-02-06T14:13:55,364	15401	com.amazonaws.services.glue.utils.AWSClientUtils$	[main]	97	AWSClientUtils: create aws sts client with conf: proxy hostnull, proxy port 0
+
+INFO 2026-02-06T14:13:55,364 15401 com.amazonaws.services.glue.utils.AWSClientUtils$ [main] 97 AWSClientUtils: create aws sts client with conf: proxy hostnull, proxy port 0
+2026-02-06T14:13:56.770Z
+INFO	2026-02-06T14:13:56,769	16806	com.amazonaws.services.gluedi.sensei.autodebugging.AutoDebuggingProxy	[main]	198	initializing AutoDebuggingProxy
+
+INFO 2026-02-06T14:13:56,769 16806 com.amazonaws.services.gluedi.sensei.autodebugging.AutoDebuggingProxy [main] 198 initializing AutoDebuggingProxy
+2026-02-06T14:13:56.808Z
+INFO	2026-02-06T14:13:56,808	16845	com.amazonaws.services.gluedi.sensei.autodebugging.AutoDebuggingProxy	[main]	203	registering spark listeners
+
+INFO 2026-02-06T14:13:56,808 16845 com.amazonaws.services.gluedi.sensei.autodebugging.AutoDebuggingProxy [main] 203 registering spark listeners
+2026-02-06T14:13:56.885Z
+INFO	2026-02-06T14:13:56,885	16922	com.amazonaws.services.glue.launch.helpers.SparkPropsManagerHelper	[main]	114	optimizeParallelismConfigs started 
+
+INFO 2026-02-06T14:13:56,885 16922 com.amazonaws.services.glue.launch.helpers.SparkPropsManagerHelper [main] 114 optimizeParallelismConfigs started
+2026-02-06T14:13:56.914Z
+INFO	2026-02-06T14:13:56,914	16951	com.amazonaws.services.glue.launch.helpers.LoggerPropsManager	[main]	31	setupLoggerProperties...
+
+INFO 2026-02-06T14:13:56,914 16951 com.amazonaws.services.glue.launch.helpers.LoggerPropsManager [main] 31 setupLoggerProperties...
+2026-02-06T14:13:56.923Z
+WARN	2026-02-06T14:13:56,923	16960	com.amazonaws.services.glue.launch.helpers.LoggerPropsManager	[main]	60	Logger setup failed for exception analysis: Cannot invoke "java.net.URL.toURI()" because the return value of "java.lang.Class.getResource(String)" is null
+
+WARN 2026-02-06T14:13:56,923 16960 com.amazonaws.services.glue.launch.helpers.LoggerPropsManager [main] 60 Logger setup failed for exception analysis: Cannot invoke "java.net.URL.toURI()" because the return value of "java.lang.Class.getResource(String)" is null
+2026-02-06T14:13:56.932Z
+INFO	2026-02-06T14:13:56,932	16969	com.amazonaws.services.glue.FileDownloader	[main]	96	downloading /tmp/glue-318757428879587245log4j2.properties file to destination location: /tmp/glue-job-17628234504847662181/glue-318757428879587245log4j2.properties
+
+INFO 2026-02-06T14:13:56,932 16969 com.amazonaws.services.glue.FileDownloader [main] 96 downloading /tmp/glue-318757428879587245log4j2.properties file to destination location: /tmp/glue-job-17628234504847662181/glue-318757428879587245log4j2.properties
+2026-02-06T14:13:57.746Z
+INFO	2026-02-06T14:13:57,746	17783	com.amazonaws.services.glue.launch.helpers.LoggerPropsManager	[main]	78	setting up the log4j.configurationFile=/tmp/glue-job-17628234504847662181/glue-318757428879587245log4j2.properties
+
+INFO 2026-02-06T14:13:57,746 17783 com.amazonaws.services.glue.launch.helpers.LoggerPropsManager [main] 78 setting up the log4j.configurationFile=/tmp/glue-job-17628234504847662181/glue-318757428879587245log4j2.properties
+2026-02-06T14:13:57.786Z
+INFO	2026-02-06T14:13:57,784	17821	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors
+
+INFO 2026-02-06T14:13:57,784 17821 com.amazonaws.services.glue.PrepareLaunch [main] 266 Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors
+2026-02-06T14:13:57.787Z
+INFO	2026-02-06T14:13:57,786	17823	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/selected
+
+INFO 2026-02-06T14:13:57,786 17823 com.amazonaws.services.glue.PrepareLaunch [main] 266 Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/selected
+2026-02-06T14:13:57.787Z
+INFO	2026-02-06T14:13:57,787	17824	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/exception_catch
+
+INFO 2026-02-06T14:13:57,787 17824 com.amazonaws.services.glue.PrepareLaunch [main] 266 Creating directory /tmp/glue-job-17628234504847662181/exception_catch
+2026-02-06T14:13:57.788Z
+INFO	2026-02-06T14:13:57,788	17825	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/amazon
+
+INFO 2026-02-06T14:13:57,788 17825 com.amazonaws.services.glue.PrepareLaunch [main] 266 Creating directory /tmp/glue-job-17628234504847662181/amazon
+2026-02-06T14:13:57.789Z
+INFO	2026-02-06T14:13:57,789	17826	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/amazon/certs
+
+INFO 2026-02-06T14:13:57,789 17826 com.amazonaws.services.glue.PrepareLaunch [main] 266 Creating directory /tmp/glue-job-17628234504847662181/amazon/certs
+2026-02-06T14:13:57.794Z
+INFO	2026-02-06T14:13:57,790	17827	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/selected/native
+INFO	2026-02-06T14:13:57,791	17828	com.amazonaws.services.glue.PrepareLaunch	[main]	266	Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/marketplace
+
+INFO 2026-02-06T14:13:57,790 17827 com.amazonaws.services.glue.PrepareLaunch [main] 266 Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/selected/native INFO 2026-02-06T14:13:57,791 17828 com.amazonaws.services.glue.PrepareLaunch [main] 266 Creating directory /tmp/glue-job-17628234504847662181/aws_glue_connectors/marketplace
+2026-02-06T14:13:57.945Z
+INFO	2026-02-06T14:13:57,944	17981	com.amazonaws.services.glue.launch.helpers.ConnectionsManager	[main]	78	GLUE_CONNECTIVITY: attached connection types: ListBuffer()
+
+INFO 2026-02-06T14:13:57,944 17981 com.amazonaws.services.glue.launch.helpers.ConnectionsManager [main] 78 GLUE_CONNECTIVITY: attached connection types: ListBuffer()
+2026-02-06T14:13:58.410Z
+INFO	2026-02-06T14:13:58,410	18447	com.amazonaws.services.glue.PrepareLaunch	[main]	196	list of connectors to be added in classpath: List()
+
+INFO 2026-02-06T14:13:58,410 18447 com.amazonaws.services.glue.PrepareLaunch [main] 196 list of connectors to be added in classpath: List()
+2026-02-06T14:13:58.414Z
+INFO	2026-02-06T14:13:58,414	18451	com.amazonaws.services.glue.FileDownloader	[main]	96	downloading s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py file to destination location: /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py
+
+INFO 2026-02-06T14:13:58,414 18451 com.amazonaws.services.glue.FileDownloader [main] 96 downloading s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py file to destination location: /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py
+2026-02-06T14:13:58.792Z
+INFO	2026-02-06T14:13:58,791	18828	com.amazonaws.services.glue.utils.AWSS3Utils$	[main]	29	Encoding S3 URI s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py
+
+INFO 2026-02-06T14:13:58,791 18828 com.amazonaws.services.glue.utils.AWSS3Utils$ [main] 29 Encoding S3 URI s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py
+2026-02-06T14:13:58.792Z
+INFO	2026-02-06T14:13:58,792	18829	com.amazonaws.services.glue.utils.AWSS3Utils$	[main]	34	Encoded S3 URI to s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py
+
+INFO 2026-02-06T14:13:58,792 18829 com.amazonaws.services.glue.utils.AWSS3Utils$ [main] 34 Encoded S3 URI to s3://aws-glue-assets-462634386608-ap-south-1/scripts/netflix-raw-to-processed-v2.py
+2026-02-06T14:13:58.821Z
+INFO	2026-02-06T14:13:58,821	18858	com.amazonaws.services.glue.FileDownloader	[main]	139	Download bucket: aws-glue-assets-462634386608-ap-south-1 key: scripts/netflix-raw-to-processed-v2.py to /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py with usingProxy: false and isProxyDisabled: true
+
+INFO 2026-02-06T14:13:58,821 18858 com.amazonaws.services.glue.FileDownloader [main] 139 Download bucket: aws-glue-assets-462634386608-ap-south-1 key: scripts/netflix-raw-to-processed-v2.py to /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py with usingProxy: false and isProxyDisabled: true
+2026-02-06T14:14:00.290Z
+INFO	2026-02-06T14:14:00,289	20326	com.amazonaws.services.glue.FileDownloader	[sdk-async-response-3-0]	146	Object downloaded. Details: GetObjectResponse(AcceptRanges=bytes, LastModified=2026-02-06T14:13:22Z, ContentLength=2466, ETag="cc9b6158748ca6042006bc8d60e4f4f6", ContentType=application/octet-stream; charset=UTF-8, ServerSideEncryption=AES256, Metadata=
+{}
+)
+
+INFO 2026-02-06T14:14:00,289 20326 com.amazonaws.services.glue.FileDownloader [sdk-async-response-3-0] 146 Object downloaded. Details: GetObjectResponse(AcceptRanges=bytes, LastModified=2026-02-06T14:13:22Z, ContentLength=2466, ETag="cc9b6158748ca6042006bc8d60e4f4f6", ContentType=application/octet-stream; charset=UTF-8, ServerSideEncryption=AES256, Metadata={})
+2026-02-06T14:14:00.291Z
+INFO	2026-02-06T14:14:00,290	20327	com.amazonaws.services.glue.launch.helpers.FileManager	[main]	119	Script should be downloaded at /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py 
+
+INFO 2026-02-06T14:14:00,290 20327 com.amazonaws.services.glue.launch.helpers.FileManager [main] 119 Script should be downloaded at /tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py
+2026-02-06T14:14:02.483Z
+INFO	2026-02-06T14:14:02,482	22519	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute unzip /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882.py.zip -d /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882
+
+INFO 2026-02-06T14:14:02,482 22519 com.amazonaws.services.glue.PythonModuleInstaller [pool-4-thread-1] 178 Command to Execute unzip /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882.py.zip -d /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882
+2026-02-06T14:14:02.526Z
+INFO	2026-02-06T14:14:02,526	22563	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute /usr/bin/bash /tmp/glue-job-17628234504847662181/pythonmodules/pythonmoduleinstaller.sh /tmp/glue_venv --no-index --no-deps /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882/amzn_awsgluelibs-5.0.882-py3-none-any.whl
+
+INFO 2026-02-06T14:14:02,526 22563 com.amazonaws.services.glue.PythonModuleInstaller [pool-4-thread-1] 178 Command to Execute /usr/bin/bash /tmp/glue-job-17628234504847662181/pythonmodules/pythonmoduleinstaller.sh /tmp/glue_venv --no-index --no-deps /tmp/glue-job-17628234504847662181/python/i4QT7Z-AWSGlueDataplanePython-5.0.882/amzn_awsgluelibs-5.0.882-py3-none-any.whl
+2026-02-06T14:14:03.776Z
+INFO	2026-02-06T14:14:03,775	23812	com.amazonaws.services.glue.PythonModuleInstaller	[pool-4-thread-1]	178	Command to Execute unzip /tmp/glue-job-17628234504847662181/python/4o4gPV-AwsGlueMLLibs.py.zip -d /tmp/glue-job-17628234504847662181/python/4o4gPV-AwsGlueMLLibs
+
+INFO 2026-02-06T14:14:03,775 23812 com.amazonaws.services.glue.PythonModuleInstaller [pool-4-thread-1] 178 Command to Execute unzip /tmp/glue-job-17628234504847662181/python/4o4gPV-AwsGlueMLLibs.py.zip -d /tmp/glue-job-17628234504847662181/python/4o4gPV-AwsGlueMLLibs
+2026-02-06T14:14:03.781Z
+INFO 2026-02-06T14:14:03,781 23818 com.amazonaws.services.glue.PythonModuleInstaller [pool-4-thread-1] 178 Command to Execute /usr/bin/bash /tmp/glue-job-17628234504847662181/pythonmodules/pythonmoduleinstaller.sh /tmp/glue_venv --no-index --no-deps /tmp/glue-job-17628234504847662181/python/4o4gPV-AwsGlueMLLibs/amzn_awsgluemlpythonlibs-1.0-py3-none-any.whl
+2026-02-06T14:14:06.566Z
+INFO 2026-02-06T14:14:06,566 26603 com.amazonaws.services.glue.PythonModuleInstaller [pool-4-thread-1] 178 Command to Execute /usr/bin/bash /tmp/glue-job-17628234504847662181/pythonmodules/createvenvzip.sh /tmp/glue_venv /tmp/glue-job-17628234504847662181_glue_venv.zip
+2026-02-06T14:14:06.703Z
+INFO 2026-02-06T14:14:06,702 26739 com.amazonaws.services.glue.utils.concurrent.PythonModuleTask [pool-4-thread-1] 39 Setting Up Virtual Env and Application Python Modules has been completed in async mode
+2026-02-06T14:14:06.711Z
+INFO 2026-02-06T14:14:06,710 26747 com.amazonaws.services.glue.utils.concurrent.GlueConcurrentAsyncProcessingService [main] 50 shutdownAsyncProcessing has been Started
+2026-02-06T14:14:06.711Z
+INFO 2026-02-06T14:14:06,711 26748 com.amazonaws.services.glue.utils.concurrent.GlueConcurrentAsyncProcessingService [main] 76 shutdownAsyncProcessing has been completed
+2026-02-06T14:14:06.714Z
+Running autoDebugger shutdown hook.
+2026-02-06T14:14:07.077Z
+Launching ...
+2026-02-06T14:14:07.079Z
+Fri Feb 6 14:14:07 UTC 2026
+2026-02-06T14:14:09.281Z
+INFO 2026-02-06T14:14:09,277 2139 com.amazonaws.services.glue.SparkUICleaner [main] 60 SparkUILogFileCleanerThread started
+2026-02-06T14:14:09.289Z
+INFO 2026-02-06T14:14:09,289 2151 com.amazonaws.services.glue.LogPusher [main] 60 standardLogging: true - logs will be written with job run ID or session ID
+2026-02-06T14:14:09.290Z
+INFO 2026-02-06T14:14:09,290 2152 com.amazonaws.services.glue.LogPusher [main] 60 legacyLogging: true - logs will be written with spark application ID
+2026-02-06T14:14:10.216Z
+INFO 2026-02-06T14:14:10,216 3078 com.amazon.ws.emr.hadoop.fs.util.PlatformInfo [main] 56 Unable to read clusterId from http://localhost:8321/configuration, trying extra instance data file: /var/lib/instance-controller/extraInstanceData.json
+2026-02-06T14:14:10.217Z
+INFO 2026-02-06T14:14:10,217 3079 com.amazon.ws.emr.hadoop.fs.util.PlatformInfo [main] 63 Unable to read clusterId from /var/lib/instance-controller/extraInstanceData.json, trying EMR job-flow data file: /var/lib/info/job-flow.json
+2026-02-06T14:14:10.218Z
+INFO 2026-02-06T14:14:10,218 3080 com.amazon.ws.emr.hadoop.fs.util.PlatformInfo [main] 71 Unable to read clusterId from /var/lib/info/job-flow.json, out of places to look
+2026-02-06T14:14:10.780Z
+WARN 2026-02-06T14:14:10,779 3641 com.amazonaws.util.VersionInfoUtils [main] 85 The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/ You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'. This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'. The AWS SDK for Java 1.x is being used here: at java.base/java.lang.Thread.getStackTrace(Thread.java:1619) at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81) at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59) at com.amazonaws.internal.EC2ResourceFetcher.<clinit>(EC2ResourceFetcher.java:44) at com.amazonaws.auth.InstanceMetadataServiceCredentialsFetcher.<init>(InstanceMetadataServiceCredentialsFetcher.java:38) at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:111) at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:91) at com.amazonaws.auth.InstanceProfileCredentialsProvider.<init>(InstanceProfileCredentialsProvider.java:75) at com.amazonaws.auth.InstanceProfileCredentialsProvider.<clinit>(InstanceProfileCredentialsProvider.java:58) at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.initializeProvider(EC2ContainerCredentialsProviderWrapper.java:66) at com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper.<init>(EC2ContainerCredentialsProviderWrapper.java:55) at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<init>(DefaultAWSCredentialsProviderChain.java:60) at com.amazonaws.auth.DefaultAWSCredentialsProviderChain.<clinit>(DefaultAWSCredentialsProviderChain.java:54) at java.base/java.lang.Class.forName0(Native Method) at java.base/java.lang.Class.forName(Class.java:377) at com.amazon.ws.emr.hadoop.fs.guice.DefaultAWSCredentialsProviderFactory.getCustomAwsCredentialsProvider(DefaultAWSCredentialsProviderFactory.java:61) at com.amazon.ws.emr.hadoop.fs.guice.DefaultAWSCredentialsProviderFactory.getAwsCredentialsProviderChain(DefaultAWSCredentialsProviderFactory.java:32) at com.amazon.ws.emr.hadoop.fs.guice.DefaultAWSCredentialsProviderFactory.getAwsCredentialsProvider(DefaultAWSCredentialsProviderFactory.java:26) at com.amazon.ws.emr.hadoop.fs.guice.EmrFSProdModule.getAwsCredentialsProvider(EmrFSProdModule.java:81) at com.amazon.ws.emr.hadoop.fs.guice.EmrFSProdModule.createAmazonS3LiteClient(EmrFSProdModule.java:93) at com.amazon.ws.emr.hadoop.fs.guice.EmrFSProdModule.createAmazonS3Lite(EmrFSProdModule.java:266) at com.amazon.ws.emr.hadoop.fs.guice.EmrFSBaseModule.provideAmazonS3Lite(EmrFSBaseModule.java:112) at com.amazon.ws.emr.hadoop.fs.guice.EmrFSBaseModule$$FastClassByGuice$$1363436.GUICE$TRAMPOLINE(<generated>) at com.amazon.ws.emr.hadoop.fs.guice.EmrFSBaseModule$$FastClassByGuice$$1363436.apply(<generated>) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderMethod$FastClassProviderMethod.doProvision(ProviderMethod.java:260) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderMethod.doProvision(ProviderMethod.java:171) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.provision(InternalProviderInstanceBindingImpl.java:185) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.get(InternalProviderInstanceBindingImpl.java:162) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:169) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:45) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:40) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:60) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderMethod.doProvision(ProviderMethod.java:171) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.provision(InternalProviderInstanceBindingImpl.java:185) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.get(InternalProviderInstanceBindingImpl.java:162) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:169) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:45) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.SingleFieldInjector.inject(SingleFieldInjector.java:50) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:146) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:124) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:91) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:300) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.FactoryProxy.get(FactoryProxy.java:60) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InjectorImpl$1.get(InjectorImpl.java:1101) at com.amazon.ws.emr.hadoop.fs.shaded.com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1134) at com.amazon.ws.emr.hadoop.fs.EmrFileSystem.initialize(EmrFileSystem.java:95) at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3670) at org.apache.hadoop.fs.FileSystem.access$300(FileSystem.java:171) at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3771) at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3722) at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:564) at org.apache.hadoop.fs.Path.getFileSystem(Path.java:374) at com.amazonaws.services.glue.LogPusher.<init>(LogPusher.scala:25) at com.amazonaws.services.glue.ProcessLauncher.$anonfun$logPusher$3(ProcessLauncher.scala:256) at scala.Option.map(Option.scala:230) at com.amazonaws.services.glue.ProcessLauncher.$anonfun$logPusher$2(ProcessLauncher.scala:222) at scala.Option$WithFilter.flatMap(Option.scala:271) at com.amazonaws.services.glue.ProcessLauncher.<init>(ProcessLauncher.scala:213) at com.amazonaws.services.glue.ProcessLauncher.<init>(ProcessLauncher.scala:194) at com.amazonaws.services.glue.ProcessLauncher$.main(ProcessLauncher.scala:34) at com.amazonaws.services.glue.ProcessLauncher.main(ProcessLauncher.scala)
+2026-02-06T14:14:11.083Z
+INFO 2026-02-06T14:14:11,083 3945 com.amazon.ws.emr.hadoop.fs.guice.DefaultAWSCredentialsProviderFactory [main] 72 Unable to create provider using constructor: DefaultAWSCredentialsProviderChain(java.net.URI, org.apache.hadoop.conf.Configuration)
+2026-02-06T14:14:11.247Z
+INFO 2026-02-06T14:14:11,247 4109 com.amazon.ws.emr.hadoop.fs.util.ClientConfigurationFactory [main] 85 Set initial getObject socket timeout to 2000 ms.
+2026-02-06T14:14:11.766Z
+INFO 2026-02-06T14:14:11,766 4628 com.amazonaws.services.glue.utils.EndpointConfig$ [main] 34 STAGE is prod
+2026-02-06T14:14:12.025Z
+INFO 2026-02-06T14:14:12,025 4887 com.amazonaws.services.glue.utils.EndpointConfig$ [main] 88 Endpoints: {credentials_provider=com.amazonaws.auth.DefaultAWSCredentialsProviderChain, glue.endpoint=https://glue.ap-south-1.amazonaws.com, lakeformation.endpoint=https://lakeformation.ap-south-1.amazonaws.com, jes.endpoint=https://glue-jes.ap-south-1.amazonaws.com, region=ap-south-1}
+2026-02-06T14:14:12.109Z
+INFO 2026-02-06T14:14:12,109 4971 com.amazonaws.services.gluedi.sensei.autodebugging.AutoDebuggingProxy [main] 198 initializing AutoDebuggingProxy
+2026-02-06T14:14:12.145Z
+INFO 2026-02-06T14:14:12,144 5006 com.amazonaws.services.glue.SafeLogging [main] 60 Initializing logging subsystem
+2026-02-06T14:14:13.705Z
+ERROR 2026-02-06T14:14:13,705 6567 com.amazonaws.services.glue.ProcessLauncher [main] 76 Error from Python:Traceback (most recent call last): File "<frozen runpy>", line 291, in run_path File "<frozen runpy>", line 98, in _run_module_code File "<frozen runpy>", line 88, in _run_code File "/tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py", line 2, in <module> from awsglue.transforms import EvaluateDataQuality ImportError: cannot import name 'EvaluateDataQuality' from 'awsglue.transforms' (/home/hadoop/.local/lib/python3.11/site-packages/awsglue/transforms/__init__.py)
+2026-02-06T14:14:13.948Z
+ERROR 2026-02-06T14:14:13,947 6809 com.amazonaws.services.glueexceptionanalysis.GlueExceptionAnalysisListener [main] 9 [Glue Exception Analysis] {"Event":"GlueETLJobExceptionEvent","Timestamp":1770387253753,"Failure Reason":"Traceback (most recent call last):\n File \"<frozen runpy>\", line 291, in run_path\n File \"<frozen runpy>\", line 98, in _run_module_code\n File \"<frozen runpy>\", line 88, in _run_code\n File \"/tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py\", line 2, in <module>\n from awsglue.transforms import EvaluateDataQuality\nImportError: cannot import name 'EvaluateDataQuality' from 'awsglue.transforms' (/home/hadoop/.local/lib/python3.11/site-packages/awsglue/transforms/__init__.py)","Stack Trace":[{"Declaring Class":"<module>","Method Name":"from awsglue.transforms import EvaluateDataQuality","File Name":"/tmp/glue-job-17628234504847662181/netflix-raw-to-processed-v2.py","Line Number":2}],"Last Executed Line number":2,"script":"netflix-raw-to-processed-v2.py"}
+2026-02-06T14:14:13.949Z
+ERROR 2026-02-06T14:14:13,948 6810 com.amazonaws.services.glueexceptionanalysis.GlueExceptionAnalysisListener [main] 9 [Glue Exception Analysis] Last Executed Line number from script netflix-raw-to-processed-v2.py: 2
+2026-02-06T14:14:13.951Z
+INFO 2026-02-06T14:14:13,951 6813 com.amazonaws.services.glue.ProcessLauncher [main] 60 postprocessing
+2026-02-06T14:14:13.952Z
+INFO 2026-02-06T14:14:13,951 6813 com.amazonaws.services.glue.ProcessLauncher [main] 661 Enhance failure reason and emit cloudwatch error metrics.
+2026-02-06T14:14:14.538Z
+INFO 2026-02-06T14:14:14,537 7399 com.amazonaws.services.glue.ProcessLauncher [main] 687 ExceptionErrorMessage failureReason: ImportError: cannot import name 'EvaluateDataQuality' from 'awsglue.transforms' (/home/hadoop/.local/lib/python3.11/site-packages/awsglue/transforms/__init__.py)
+2026-02-06T14:14:14.598Z
+INFO 2026-02-06T14:14:14,597 7459 com.amazonaws.services.glue.ProcessLauncher [main] 689 Error Category: IMPORT_ERROR
+2026-02-06T14:14:14.599Z
+INFO 2026-02-06T14:14:14,598 7460 com.amazonaws.services.glue.ProcessLauncher [main] 714 enhancedFailureReason: Error Category: IMPORT_ERROR; Failed Line Number: 2; ImportError: cannot import name 'EvaluateDataQuality' from 'awsglue.transforms' (/home/hadoop/.local/lib/python3.11/site-packages/awsglue/transforms/__init__.py)
+2026-02-06T14:14:14.609Z
+INFO 2026-02-06T14:14:14,608 7470 com.amazonaws.services.glue.CloudWatchMetricsEmitter [main] 34 Emit job error metrics
+2026-02-06T14:14:15.157Z
+INFO 2026-02-06T14:14:15,157 8019 com.amazonaws.services.glue.CloudWatchMetricsEmitter [main] 34 Emit job error metrics
+2026-02-06T14:14:15.174Z
+INFO 2026-02-06T14:14:15,174 8036 com.amazonaws.services.glue.LogPusher [main] 60 stopping
+2026-02-06T14:14:15.176Z
+java.lang.reflect.InvocationTargetException
+2026-02-06T14:14:15.176Z
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2026-02-06T14:14:15.176Z
+at java.base/java.lang.reflect.Method.invoke(Method.java:569) at com.amazonaws.services.glue.SparkProcessLauncherPlugin.invoke(ProcessLauncher.scala:55)
+2026-02-06T14:14:15.176Z
+	at com.amazonaws.services.glue.SparkProcessLauncherPlugin.invoke$(ProcessLauncher.scala:55)
+	at com.amazonaws.services.glue.ProcessLauncher$$anon$1.invoke(ProcessLauncher.scala:193)
+
+at com.amazonaws.services.glue.SparkProcessLauncherPlugin.invoke$(ProcessLauncher.scala:55) at com.amazonaws.services.glue.ProcessLauncher$$anon$1.invoke(ProcessLauncher.scala:193)
+2026-02-06T14:14:15.176Z
+	at com.amazonaws.services.glue.ProcessLauncher.launch(ProcessLauncher.scala:421)
+	at com.amazonaws.services.glue.ProcessLauncher$.main(ProcessLauncher.scala:35)
+
+at com.amazonaws.services.glue.ProcessLauncher.launch(ProcessLauncher.scala:421) at com.amazonaws.services.glue.ProcessLauncher$.main(ProcessLauncher.scala:35)
+2026-02-06T14:14:15.176Z
+	at com.amazonaws.services.glue.ProcessLauncher.main(ProcessLauncher.scala)
+
+at com.amazonaws.services.glue.ProcessLauncher.main(ProcessLauncher.scala)
+2026-02-06T14:14:15.177Z
+Caused by: org.apache.spark.SparkUserAppException: User application exited with 1
+	at org.apache.spark.deploy.PythonRunner$.main(PythonRunner.scala:112)
+
+Caused by: org.apache.spark.SparkUserAppException: User application exited with 1 at org.apache.spark.deploy.PythonRunner$.main(PythonRunner.scala:112)
+2026-02-06T14:14:15.177Z
+	at org.apache.spark.deploy.PythonRunner.main(PythonRunner.scala)
+	... 10 more
+
+at org.apache.spark.deploy.PythonRunner.main(PythonRunner.scala) ... 10 more
+2026-02-06T14:14:15.179Z
+INFO	2026-02-06T14:14:15,179	8041	com.amazonaws.services.glue.LogPusher	[shutdown-hook-0]	60	uploading file:///var/log/spark/apps to s3://aws-glue-assets-462634386608-ap-south-1/sparkHistoryLogs/
+
+INFO 2026-02-06T14:14:15,179 8041 com.amazonaws.services.glue.LogPusher [shutdown-hook-0] 60 uploading file:///var/log/spark/apps to s3://aws-glue-assets-462634386608-ap-south-1/sparkHistoryLogs/
+2026-02-06T14:14:15.186Z
+INFO	2026-02-06T14:14:15,186	8048	org.apache.spark.util.ShutdownHookManager	[shutdown-hook-0]	60	Shutdown hook called
+
+INFO 2026-02-06T14:14:15,186 8048 org.apache.spark.util.ShutdownHookManager [shutdown-hook-0] 60 Shutdown hook called

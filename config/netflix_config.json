@@ -1,0 +1,5 @@
+{
+  "raw_database": "netflix-streams-aws",
+  "raw_table": "raw_netflix_events_rootevents",
+  "output_path": "s3://myshr-netflix-datalake-ap-south-1/netflix/processed/"
+}

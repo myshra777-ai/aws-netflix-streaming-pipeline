@@ -1,0 +1,95 @@
+service: netflix-streaming-orchestrator
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: ap-south-1
+  stage: dev
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - bedrock:InvokeModel
+            - glue:StartJobRun
+            - glue:GetJobRun
+          Resource: "*"
+
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+          Resource:
+            - arn:aws:s3:::myshr-netflix-dlq-ap-south-1
+            - arn:aws:s3:::myshr-netflix-dlq-ap-south-1/glue-failures/*
+
+plugins:
+  - serverless-step-functions
+
+functions:
+  validation-lambda:
+    handler: src/validation_lambda.handler
+    memorySize: 128
+    timeout: 30
+
+  bedrock-analysis:
+    handler: bedrock_analysis_lambda.handler
+    memorySize: 256
+    timeout: 60
+
+stepFunctions:
+  stateMachines:
+    netflix-orchestrator-dev:
+      name: netflix-orchestrator-dev-ai-recovery
+      definition:
+        Comment: "Netflix streaming batch orchestrator with AI Recovery"
+        StartAt: ValidateInput
+        States:
+          ValidateInput:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            OutputPath: "$.Payload"
+            Parameters:
+              FunctionName: ${self:service}-dev-validation-lambda
+              Payload.$: "$"
+            Next: RunRawToProcessed
+            Catch:
+              - ErrorEquals:
+                  - States.ALL
+                ResultPath: "$.error"
+                Next: HandleFailure
+
+          RunRawToProcessed:
+            Type: Task
+            Resource: arn:aws:states:::glue:startJobRun.sync
+            Parameters:
+              JobName: netflix-raw-to-processed
+            Next: RunProcessedToRedshift
+            Catch:
+              - ErrorEquals:
+                  - States.ALL
+                ResultPath: "$.error"
+                Next: HandleFailure
+
+          RunProcessedToRedshift:
+            Type: Task
+            Resource: arn:aws:states:::glue:startJobRun.sync
+            Parameters:
+              JobName: netflix-processed-to-redshift
+            Next: SuccessState
+            Catch:
+              - ErrorEquals:
+                  - States.ALL
+                ResultPath: "$.error"
+                Next: HandleFailure
+
+          HandleFailure:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            OutputPath: "$.Payload"
+            Parameters:
+              FunctionName: ${self:service}-dev-bedrock-analysis
+              Payload.$: "$"
+            End: true
+
+          SuccessState:
+            Type: Succeed

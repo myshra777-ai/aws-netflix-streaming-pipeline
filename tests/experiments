@@ -1,0 +1,70 @@
+import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from awsgluedq.transforms import EvaluateDataQuality
+
+args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+# Default ruleset used by all target nodes with data quality enabled
+DEFAULT_DATA_QUALITY_RULESET = """
+    Rules = [
+        ColumnCount > 0
+    ]
+"""
+
+# Script generated for node Amazon S3
+AmazonS3_node1770390703607 = glueContext.create_dynamic_frame.from_options(format_options={}, connection_type="s3", format="parquet", connection_options={"paths": ["s3://myshr-netflix-datalake-ap-south-1"], "recurse": True}, transformation_ctx="AmazonS3_node1770390703607")
+
+# Script generated for node Evaluate Data Quality
+EvaluateDataQuality_node1770390710338_ruleset = """
+    # Example rules: Completeness "colA" between 0.4 and 0.8, ColumnCount > 10
+    Rules = [
+        
+    ]
+"""
+
+EvaluateDataQuality_node1770390710338 = EvaluateDataQuality().process_rows(frame=AmazonS3_node1770390703607, ruleset=EvaluateDataQuality_node1770390710338_ruleset, publishing_options={"dataQualityEvaluationContext": "EvaluateDataQuality_node1770390710338", "enableDataQualityCloudWatchMetrics": True, "enableDataQualityResultsPublishing": True}, additional_options={"observations.scope":"ALL","performanceTuning.caching":"CACHE_NOTHING"})
+
+# Script generated for node originalData
+originalData_node1770390951572 = SelectFromCollection.apply(dfc=EvaluateDataQuality_node1770390710338, key="originalData", transformation_ctx="originalData_node1770390951572")
+
+# Script generated for node Amazon S3
+EvaluateDataQuality().process_rows(frame=originalData_node1770390951572, ruleset=DEFAULT_DATA_QUALITY_RULESET, publishing_options={"dataQualityEvaluationContext": "EvaluateDataQuality_node1770390698874", "enableDataQualityResultsPublishing": True}, additional_options={"dataQualityResultsPublishing.strategy": "BEST_EFFORT", "observations.scope": "ALL"})
+AmazonS3_node1770390715333 = glueContext.write_dynamic_frame.from_options(frame=originalData_node1770390951572, connection_type="s3", format="glueparquet", connection_options={"path": "s3://myshr-netflix-datalake-ap-south-1/netflix/processed/events/", "partitionKeys": []}, format_options={"compression": "snappy"}, transformation_ctx="AmazonS3_node1770390715333")
+
+job.commit()
+
+
+
+1. Clean sweep + base folders
+S3 me sirf project prefixes empty kar:
+
+netflix/raw/
+
+netflix/processed/
+
+netflix/warehouse/
+Baaki kuch mat chhed.
+
+Phir ek fixed structure bana:
+
+netflix/raw/happy_path/
+
+netflix/raw/edge_null_ids/
+
+netflix/raw/edge_bad_event_type/
+
+netflix/raw/edge_huge_payload/
+
+netflix/raw/edge_late_events/ …etc.
+
+Har edge case = ek prefix.
+
